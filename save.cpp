@@ -39,5 +39,5 @@ void save(const std::string& fname)
 	std::copy(std::istreambuf_iterator<char>{ in }, {},
 		std::ostream_iterator<char>{ out });
 
-	out << '\n\n';
+	out << "\n\n";
 }

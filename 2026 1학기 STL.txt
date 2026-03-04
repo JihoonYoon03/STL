@@ -280,3 +280,220 @@ int main()
 	save( "save.cpp" );
 	save( "main.cpp" );		// "메인.cpp"를 저장하자
 }
+
+====================================================================
+저장 시간 - 2026-03-04 12:34:15.9480610
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 4일					(1주 2일)
+//------------------------------------------------------------------
+// template
+//------------------------------------------------------------------
+
+#include <iostream>
+
+#include "save.h"
+
+void change(int&, int&);
+
+int main()
+{
+	int a{ 1 }, b{ 2 };
+
+	// [문제] change를 호출하여 다음과 같이 출력되게 하라.
+	change(a, b);
+
+	std::cout << a << ", " << b << std::endl;		//  2, 1
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+void change(int& a, int& b)
+{
+	int temp{ a };
+	a = b;
+	b = temp;
+}
+
+====================================================================
+저장 시간 - 2026-03-04 12:57:28.1708407
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 4일					(1주 2일)
+//------------------------------------------------------------------
+// template
+//------------------------------------------------------------------
+
+#include <iostream>
+
+#include "save.h"
+
+class Dog {
+public:
+	Dog() = default;
+	Dog(int input) : value{ input } {}
+
+	operator int() {
+		return value;
+	}
+
+private:
+	int value{};
+};
+
+void change(int&, int&);
+void change(Dog&, Dog&);
+
+int main()
+{
+	{
+		int a{ 1 }, b{ 2 };
+		change(a, b);
+		std::cout << a << ", " << b << std::endl;		//  2, 1
+	}
+
+	{
+		Dog a{ 1 }, b{ 2 };
+		change(a, b);
+		std::cout << a << ", " << b << std::endl;		//  2, 1
+	}
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+void change(int& a, int& b)
+{
+	int temp{ a };
+	a = b;
+	b = temp;
+}
+
+void change(Dog& a, Dog& b)
+{
+	Dog temp{ a };		// copy constructor
+	a = b;				// a.operator= (b);
+	b = temp;
+}
+
+====================================================================
+저장 시간 - 2026-03-04 13:01:07.4133650
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 4일					(1주 2일)
+//------------------------------------------------------------------
+// template
+//------------------------------------------------------------------
+
+#include <iostream>
+
+#include "save.h"
+
+class Dog;				// forward declaration
+
+void change(int&, int&);
+void change(Dog&, Dog&);
+
+class Dog {
+public:
+	Dog() = default;
+	Dog(int input) : value{ input } {}
+
+private:
+	int value{};
+
+	friend std::ostream& operator<<(std::ostream& os, const Dog& dog) {
+		return os << dog.value;
+	}
+};
+
+int main()
+{
+	{
+		int a{ 1 }, b{ 2 };
+		change(a, b);
+		std::cout << a << ", " << b << std::endl;		//  2, 1
+	}
+
+	{
+		Dog a{ 1 }, b{ 2 };
+		change(a, b);
+		std::cout << a << ", " << b << std::endl;		//  2, 1
+	}
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+void change(int& a, int& b)
+{
+	int temp{ a };
+	a = b;
+	b = temp;
+}
+
+void change(Dog& a, Dog& b)
+{
+	Dog temp{ a };		// copy constructor
+	a = b;				// a.operator= (b);
+	b = temp;
+}
+
+====================================================================
+저장 시간 - 2026-03-04 13:17:57.0742781
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 4일					(1주 2일)
+//------------------------------------------------------------------
+// template
+//------------------------------------------------------------------
+
+#include <iostream>
+
+#include "save.h"
+
+class Dog;				// forward declaration
+
+template <class T>
+void change(T&, T&);
+
+class Dog {
+public:
+	Dog() = default;
+	Dog(int input) : value{ input } {}
+
+private:
+	int value{};
+
+	friend std::ostream& operator<<(std::ostream& os, const Dog& dog) {
+		return os << dog.value;
+	}
+};
+
+int main()
+{
+	{
+		int a{ 1 }, b{ 2 };
+		change<int>(a, b);
+		std::cout << a << ", " << b << std::endl;		//  2, 1
+	}
+
+	{
+		Dog a{ 1 }, b{ 2 };
+		change<Dog>(a, b);
+		std::cout << a << ", " << b << std::endl;		//  2, 1
+	}
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+template <class T>
+void change(T& a, T& b)
+{
+	T temp{ a };		// copy constructor
+	a = b;				// a.operator= (b);
+	b = temp;
+}
+

@@ -38,3 +38,245 @@ void save( const std::string& fname )
 	std::copy(std::istreambuf_iterator<char>{ in }, {},
 		std::ostream_iterator<char>{ out });
 }
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 4일					(1주 2일)
+//------------------------------------------------------------------
+// save한 시간을 기록한다
+// save를 분리한다
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <algorithm>
+#include <array>
+#include <chrono>
+
+void save( const std::string& );
+
+int main()
+{
+
+	std::cout << "2026년 3월 4일" << '\n';
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+void save( const std::string& fname )
+{
+	std::cout << '\"' << fname << "\" 저장합니다" << '\n';
+
+	std::ifstream in { fname };		// RAII - Resource Acquisition Is Initialization
+	if ( not in )
+	{
+		std::cout << fname << " - 열 수 없습니다" << '\n';
+		exit(20260304);
+	}
+
+	std::ofstream out { "2026 1학기 STL.txt", std::ios::app };
+
+	// 저장한 시간을 out에 기록하자
+	// std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+	auto now = std::chrono::system_clock::now();
+	std::cout << now << '\n';
+
+	// in의 내용을 읽어서 out에 덧붙이자.
+	// std::copy(원본, 복사본)
+	std::copy(std::istreambuf_iterator<char>{ in }, {},
+		std::ostream_iterator<char>{ out });
+}
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 4일					(1주 2일)
+//------------------------------------------------------------------
+// save한 시간을 기록한다
+// save를 분리한다
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <algorithm>
+#include <array>
+#include <chrono>
+
+void save( const std::string& );
+
+int main()
+{
+
+	std::cout << "2026년 3월 4일" << '\n';
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+void save( const std::string& fname )
+{
+	std::cout << '\"' << fname << "\" 저장합니다" << '\n';
+
+	std::ifstream in { fname };		// RAII - Resource Acquisition Is Initialization
+	if ( not in )
+	{
+		std::cout << fname << " - 열 수 없습니다" << '\n';
+		exit(20260304);
+	}
+
+	std::ofstream out { "2026 1학기 STL.txt", std::ios::app };
+
+	// 저장한 시간을 out에 기록하자
+	// std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+	auto now = std::chrono::system_clock::now();
+	using namespace std::chrono_literals;
+	std::cout << now + 9h << '\n';
+
+	// in의 내용을 읽어서 out에 덧붙이자.
+	// std::copy(원본, 복사본)
+	std::copy(std::istreambuf_iterator<char>{ in }, {},
+		std::ostream_iterator<char>{ out });
+}
+
+====================================================================
+저장 시간 - 2026-03-04 11:56:32.2519782
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 4일					(1주 2일)
+//------------------------------------------------------------------
+// save한 시간을 기록한다
+// save를 분리한다
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <algorithm>
+#include <array>
+#include <chrono>
+
+void save( const std::string& );
+
+int main()
+{
+
+	std::cout << "2026년 3월 4일" << '\n';
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+void save( const std::string& fname )
+{
+	std::cout << '\"' << fname << "\" 저장합니다" << '\n';
+
+	std::ifstream in { fname };		// RAII - Resource Acquisition Is Initialization
+	if ( not in )
+	{
+		std::cout << fname << " - 열 수 없습니다" << '\n';
+		exit(20260304);
+	}
+
+	std::ofstream out { "2026 1학기 STL.txt", std::ios::app };
+
+	// 저장한 시간을 out에 기록하자
+	// std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+	// 시간을 한글로 저장하자
+	auto now = std::chrono::system_clock::now();
+	using namespace std::chrono_literals;
+	
+	out << "===================================================================" << '\n';
+	out << "저장 시간 - " << now + 9h << '\n';
+	out << "===================================================================" << '\n';
+	out << '\n';
+
+	// in의 내용을 읽어서 out에 덧붙이자.
+	// std::copy(원본, 복사본)
+	std::copy(std::istreambuf_iterator<char>{ in }, {},
+		std::ostream_iterator<char>{ out });
+}
+
+====================================================================
+저장 시간 - 2026-03-04 12:25:23.3320253
+====================================================================
+
+//------------------------------------------------------------------
+// 한 학기 강의를 저장하는 함수
+// 
+// 2026. 3. 4												jihoon
+//------------------------------------------------------------------
+
+#pragma once
+
+void save(const std::string&);
+
+====================================================================
+저장 시간 - 2026-03-04 12:25:23.3404261
+====================================================================
+
+//------------------------------------------------------------------
+// 한 학기 강의를 저장하는 함수
+// 
+// 2026. 3. 4												jihoon
+//------------------------------------------------------------------
+
+#include <chrono>
+#include <iostream>
+#include <fstream>
+
+#include "save.h"
+
+void save(const std::string& fname)
+{
+	std::cout << '\"' << fname << "\" 저장합니다" << '\n';
+
+	std::ifstream in{ fname };		// RAII - Resource Acquisition Is Initialization
+	if (not in)
+	{
+		std::cout << fname << " - 열 수 없습니다" << '\n';
+		exit(20260304);
+	}
+
+	std::ofstream out{ "2026 1학기 STL.txt", std::ios::app };
+
+	// 저장한 시간을 out에 기록하자
+	// std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+	// 시간을 한글로 저장하자
+	auto now = std::chrono::system_clock::now();
+	using namespace std::chrono_literals;
+
+	out << "====================================================================" << '\n';
+	out << "저장 시간 - " << now + 9h << '\n';
+	out << "====================================================================" << '\n';
+	out << '\n';
+
+	// in의 내용을 읽어서 out에 덧붙이자.
+	// std::copy(원본, 복사본)
+	std::copy(std::istreambuf_iterator<char>{ in }, {},
+		std::ostream_iterator<char>{ out });
+
+	out << '\n';
+}
+
+====================================================================
+저장 시간 - 2026-03-04 12:25:23.3473418
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 4일					(1주 2일)
+//------------------------------------------------------------------
+// save한 시간을 기록한다
+// save를 분리한다
+//------------------------------------------------------------------
+
+#include <iostream>
+
+#include "save.h"
+
+int main()
+{
+
+	std::cout << "2026년 3월 4일 - save 완성" << '\n';
+
+	save( "save.h" );
+	save( "save.cpp" );
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}

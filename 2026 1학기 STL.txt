@@ -497,3 +497,479 @@ void change(T& a, T& b)
 	b = temp;
 }
 
+====================================================================
+저장 시간 - 2026-03-04 13:18:42.1261534
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 4일					(1주 2일)
+//------------------------------------------------------------------
+// template
+//------------------------------------------------------------------
+
+#include <iostream>
+
+#include "save.h"
+
+class Dog;				// forward declaration
+
+template <class T>
+void change(T& a, T& b)
+{
+	T temp{ a };		// copy constructor
+	a = b;				// a.operator= (b);
+	b = temp;
+}
+
+class Dog {
+public:
+	Dog() = default;
+	Dog(int input) : value{ input } {}
+
+private:
+	int value{};
+
+	friend std::ostream& operator<<(std::ostream& os, const Dog& dog) {
+		return os << dog.value;
+	}
+};
+
+int main()
+{
+	{
+		int a{ 1 }, b{ 2 };
+		change<int>(a, b);
+		std::cout << a << ", " << b << std::endl;		//  2, 1
+	}
+
+	{
+		Dog a{ 1 }, b{ 2 };
+		change<Dog>(a, b);
+		std::cout << a << ", " << b << std::endl;		//  2, 1
+	}
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-03-10 14:19:33.0975261
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 10일					(2주 1일)
+//------------------------------------------------------------------
+// template
+//------------------------------------------------------------------
+
+#include <iostream>
+
+#include "save.h"
+
+class Dog;				// forward declaration
+
+// compiler phase - cppreference
+
+template <class T>
+void change(T& a, T& b)
+{
+	T temp{ a };		// copy constructor
+	a = b;				// a.operator= (b);
+	b = temp;
+}
+
+class Dog {
+public:
+	Dog() = default;
+	Dog(int input) : value{ input } {}
+
+private:
+	int value{};
+
+	friend std::ostream& operator<<(std::ostream& os, const Dog& dog) {
+		return os << dog.value;
+	}
+};
+
+template <>
+void change<Dog>(Dog& a, Dog& b)
+{
+	Dog temp{ a };		// copy constructor
+	a = b;				// a.operator= (b);
+	b = temp;
+}
+
+int main()
+{
+
+
+	{
+		int a{ 1 }, b{ 2 };
+		change<int>(a, b);
+		std::cout << a << ", " << b << std::endl;		//  2, 1
+	}
+
+	{
+		Dog a{ 1 }, b{ 2 };
+		change<Dog>(a, b);
+		std::cout << a << ", " << b << std::endl;		//  2, 1
+	}
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-03-10 14:26:50.0742669
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 10일					(2주 1일)
+//------------------------------------------------------------------
+// template
+//------------------------------------------------------------------
+
+#include <iostream>
+
+#include "save.h"
+
+class Dog;				// forward declaration
+
+// compiler phase - cppreference
+
+template <class T>
+void change(T& a, T& b)
+{
+	T temp{ a };		// copy constructor
+	a = b;				// a.operator= (b);
+	b = temp;
+}
+
+class Dog {
+public:
+	Dog() = default;
+	Dog(int input) : value{ input } {}
+
+private:
+	int value{};
+
+	friend std::ostream& operator<<(std::ostream& os, const Dog& dog) {
+		return os << dog.value;
+	}
+};
+
+void change(Dog& a, Dog& b)
+{
+	std::cout << "나는 global 함수야" << '\n';
+}
+
+template <>		// specialization
+void change<Dog>(Dog& a, Dog& b)
+{
+	std::cout << "누가 개소리를 내었는가?" << '\n';
+}
+
+int main()
+{
+	{
+		int a{ 1 }, b{ 2 };
+		change<int>(a, b);
+		std::cout << a << ", " << b << std::endl;		//  2, 1
+	}
+
+	{
+		Dog a{ 1 }, b{ 2 };
+		change<Dog>(a, b);								// 함수 호출 우선순위
+		std::cout << a << ", " << b << std::endl;		//  2, 1
+	}
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-03-10 14:27:10.3235817
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 10일					(2주 1일)
+//------------------------------------------------------------------
+// template
+//------------------------------------------------------------------
+
+#include <iostream>
+
+#include "save.h"
+
+class Dog;				// forward declaration
+
+// compiler phase - cppreference
+
+template <class T>
+void change(T& a, T& b)
+{
+	T temp{ a };		// copy constructor
+	a = b;				// a.operator= (b);
+	b = temp;
+}
+
+class Dog {
+public:
+	Dog() = default;
+	Dog(int input) : value{ input } {}
+
+private:
+	int value{};
+
+	friend std::ostream& operator<<(std::ostream& os, const Dog& dog) {
+		return os << dog.value;
+	}
+};
+
+void change(Dog& a, Dog& b)
+{
+	std::cout << "나는 global 함수야" << '\n';
+}
+
+template <>		// specialization
+void change<Dog>(Dog& a, Dog& b)
+{
+	std::cout << "누가 개소리를 내었는가?" << '\n';
+}
+
+int main()
+{
+	{
+		int a{ 1 }, b{ 2 };
+		change<int>(a, b);
+		std::cout << a << ", " << b << std::endl;		//  2, 1
+	}
+
+	{
+		Dog a{ 1 }, b{ 2 };
+		change(a, b);									// 함수 호출 우선순위
+		std::cout << a << ", " << b << std::endl;		//  2, 1
+	}
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-03-10 14:48:51.9743736
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 10일					(2주 1일)
+//------------------------------------------------------------------
+// template
+//------------------------------------------------------------------
+
+#include <iostream>
+#include "save.h"
+
+template <class T>
+T add(T a, T b)
+{
+	return a + b;
+}
+
+int main()
+{
+	// [문제] template 함수 add로 실행되게 하자
+
+	std::cout << add<int>(2026, 310) << std::endl;
+	using namespace std::string_literals;
+	std::cout << add<std::string>("2026년"s, " 3월 10일"s) << std::endl;
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-03-10 14:52:25.2474615
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 10일					(2주 1일)
+//------------------------------------------------------------------
+// template
+//------------------------------------------------------------------
+
+#include <iostream>
+#include "save.h"
+
+template <class T>
+T add(const T& a, const T& b)
+{
+	return a + b;	// RVO
+}
+
+int main()
+{
+	// [문제] template 함수 add로 실행되게 하자
+
+	std::cout << add<int>(2026, 310) << std::endl;
+	using namespace std::string_literals;
+	std::cout << add<std::string>("2026년"s, " 3월 10일"s) << std::endl;
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-03-10 15:00:41.3377574
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 10일					(2주 1일)
+//------------------------------------------------------------------
+// C++언어에서 template의 역할은? -> Generic Programming
+// 많은 수의 자료를 처리하기
+//------------------------------------------------------------------
+
+#include <iostream>
+
+#include "save.h"
+
+int main()
+{
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+====================================================================
+저장 시간 - 2026-03-10 15:14:08.5723509
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 10일					(2주 1일)
+//------------------------------------------------------------------
+// 많은 수의 자료를 처리하기
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <random>
+
+#include "save.h"
+
+std::default_random_engine dre;
+std::uniform_int_distribution<int> uid{ 0, 9999 };
+
+int main()
+{
+	// [문제] 임의의 값을 갖는 int 1000개를 생성하라. 모든 값을 화면에 출력하라.
+
+	for (int i = 0; i < 1000; i++)
+	{
+		std::cout << uid(dre) << std::endl;
+	}
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-03-10 15:16:26.0611496
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 10일					(2주 1일)
+//------------------------------------------------------------------
+// 많은 수의 자료를 처리하기
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <random>
+
+#include "save.h"
+
+std::default_random_engine dre;
+std::uniform_int_distribution<int> uid{ 0, 9999 };
+
+int main()
+{
+	// [문제] 임의의 값을 갖는 int 1000개를 생성하라. 모든 값을 화면에 출력하라.
+
+	int num[1000];
+
+	for (int i = 0; i < 1000; ++i)
+	{
+		num[i] = uid(dre);
+	}
+
+	for (int n : num)
+	{
+		std::cout << n << ' ';
+	}
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-03-10 15:18:56.2740402
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 10일					(2주 1일)
+//------------------------------------------------------------------
+// 많은 수의 자료를 처리하기
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <random>
+#include <print>
+
+#include "save.h"
+
+std::default_random_engine dre;
+std::uniform_int_distribution<int> uid{ 0, 9999 };
+
+int main()
+{
+	// [문제] 임의의 값을 갖는 int 1000개를 생성하라. 모든 값을 화면에 출력하라.
+
+	int num[1000];
+
+	for (int i = 0; i < 1000; ++i)
+	{
+		num[i] = uid(dre);
+	}
+
+	for (int n : num)
+	{
+		std::print("{:8}", n);
+	}
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-03-10 15:19:11.4020597
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				3월 10일					(2주 1일)
+//------------------------------------------------------------------
+// 많은 수의 자료를 처리하기
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <random>
+#include <print>
+
+#include "save.h"
+
+std::default_random_engine dre;
+std::uniform_int_distribution<int> uid{ 0, 9999 };
+
+int main()
+{
+	// [문제] 임의의 값을 갖는 int 1000개를 생성하라. 모든 값을 화면에 출력하라.
+
+	int num[1000];
+
+	for (int i = 0; i < 1000; ++i)
+	{
+		num[i] = uid(dre);
+	}
+
+	for (int n : num)
+	{
+		std::print("{:^80}", n);
+	}
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+

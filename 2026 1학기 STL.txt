@@ -1085,11 +1085,11 @@ int main()
 
 	for (int n : num) {
 		std::print("{:8}", n);
-	}
+	}	
 	std::cout << std::endl;
 
 	// [문제] 가장 큰 값과 가장 작은 값을 찾아 화면에 출력하자
-	// structured binding - syntatic sugar
+	// structured binding - syntactic sugar
 	auto [minValPos, maxValPos] = std::minmax_element(std::begin(num), std::end(num));
 	std::cout << "가장 작은 값은 - " << *minValPos << std::endl;
 	std::cout << "가장 큰 값은 - " << *maxValPos << std::endl;
@@ -1160,7 +1160,7 @@ int main()
 	std::cout << std::endl;
 
 	// [문제] 가장 큰 값과 가장 작은 값을 찾아 화면에 출력하자
-	// structured binding - syntatic sugar
+	// structured binding - syntactic sugar
 	auto [minValPos, maxValPos] = std::minmax_element(num.begin(), num.end());
 	std::cout << "가장 작은 값은 - " << *minValPos << std::endl;
 	std::cout << "가장 큰 값은 - " << *maxValPos << std::endl;

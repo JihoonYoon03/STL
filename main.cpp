@@ -1,39 +1,35 @@
-//--------------------------------- ---------------------------------
-// 2026 1학기 STL				3월 11일					(2주 2일)
+//-------------------------------------------------------------------
+// 2026 1학기 STL				3월 17일					(3주 1일)
 //------------------------------------------------------------------
-// 많은 수의 자료를 처리하기
+// 많은 수의 자료를 처리하기 - binary I/O
 //------------------------------------------------------------------
 
 #include <iostream>
-#include <random>
 #include <fstream>
 #include <array>
+#include <print>
 
 #include "save.h"
 
-std::default_random_engine dre{ };
-std::uniform_int_distribution<int> uid{ 0, 999'9999 };
-
 int main()
 {
-	// [문제] "int값1000만개.txt"에 저장한 int값을 읽어 화면에 저장하라.
-	/*std::ofstream out { "int값1000만개.txt" };
+	// [문제] 파일 "int 천개.bin"에는 1000개의 int값이 저장되어있다.
+	// 파일은 binary mode
+	// 메모리에 int 1000개 값을 읽어 오세요.
 
-	for (int i = 0; i < 1000'0000; ++i) {
-		out << uid(dre) << ' ';
-	}*/
-
-	std::ifstream in{ "int값1000만개.txt" };
+	std::ifstream in{ "int 천개.bin", std::ios::binary };
 
 	if (not in) {
-		std::cout << "파일 읽기 실패" << std::endl;
-		return 2022184025;
+		std::cout << "잘못된 파일입니다" << std::endl;
 	}
 
-	int num = 0;
-	while (in >> num) {
-		std::cout << num << std::endl;
+	std::array<int, 1000> a;
+
+	in.read(reinterpret_cast<char*>(a.data()), a.size() * sizeof(int));
+	
+	for (int num : a) {
+		std::print("{:8}", num);
 	}
 
-	//save( "main.cpp" );		// "메인.cpp"를 저장하자
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
 }

@@ -1531,3 +1531,268 @@ int main()
 	save( "main.cpp" );		// "메인.cpp"를 저장하자
 }
 
+//-------------------------------------------------------------------
+// 2026 1학기 STL				3월 18일					(3주 2일)
+//------------------------------------------------------------------
+// 많은 수의 자료를 처리하기 - binary I/O
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <random>
+#include <print>
+#include <string>
+
+#include "save.h"
+
+std::default_random_engine dre;
+std::uniform_int_distribution uid{ 0, 9999 };
+std::uniform_int_distribution uidNameLen{ 10, 30 };
+std::uniform_int_distribution<int> uidChar{ 'a', 'z' };
+
+class Dog {
+public:
+    Dog() {
+        num = uid(dre);
+        size_t len = uidNameLen(dre);
+	for (int  i = 0; i < len; ++i) {
+	    name += uidChar(dre);
+    	}
+    }
+private:
+    std::string name;		// 10 이상 30 이하 임의의 소문자
+    int num{uid(dre)};
+
+    friend std::ostream& operator<<(std::ostream& os, const Dog& dog) {
+	std::print(os, "[{:4}] - {}", dog.num, dog.name);
+	return os;
+    }
+};
+
+int main()
+{
+	for (int i = 0; i < 10; ++i)
+		std::cout << Dog() << std::endl;
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+//-------------------------------------------------------------------
+// 2026 1학기 STL				3월 18일					(3주 2일)
+//------------------------------------------------------------------
+// 많은 수의 자료를 처리하기 - binary I/O
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <random>
+#include <print>
+#include <string>
+#include <array>
+#include <fstream>
+
+#include "save.h"
+
+std::default_random_engine dre;
+std::uniform_int_distribution uid{ 0, 9999 };
+std::uniform_int_distribution uidNameLen{ 10, 30 };
+std::uniform_int_distribution<int> uidChar{ 'a', 'z' };
+
+class Dog {
+public:
+    Dog() {
+        num = uid(dre);
+        size_t len = uidNameLen(dre);
+	for (int  i = 0; i < len; ++i) {
+	    name += uidChar(dre);
+    	}
+    }
+private:
+    std::string name;		// 10 이상 30 이하 임의의 소문자
+    int num{uid(dre)};
+
+    friend std::ostream& operator<<(std::ostream& os, const Dog& dog) {
+	    std::print(os, "[{:4}] - {}", dog.num, dog.name);
+    	return os;
+    }
+};
+
+int main()
+{
+    // [문제] "dogs를 파일 "Dog백마리"에 저장하라.
+    // 파일 크기는 sizeof(Dog) * dogs.size() 이어야 한다.
+    std::array<Dog, 100> dogs;
+
+    std::ofstream out{ "Dog백마리", std::ios::binary};
+    out.write(reinterpret_cast<char*>(dogs.data()), dogs.size() * sizeof(Dog));
+    
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+//-------------------------------------------------------------------
+// 2026 1학기 STL				3월 18일					(3주 2일)
+//------------------------------------------------------------------
+// 많은 수의 자료를 처리하기 - binary I/O
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <print>
+#include <string>
+#include <array>
+#include <fstream>
+#include <filesystem>		// C++17
+
+#include "save.h"
+
+class Dog {
+	
+private:
+    std::string name;		// 10 이상 30 이하 임의의 소문자
+    int num;
+
+    friend std::ostream& operator<<(std::ostream& os, const Dog& dog) {
+	    std::print(os, "[{:4}] - {}", dog.num, dog.name);
+    	return os;
+    }
+};
+
+int main()
+{
+    // [문제] 바이너리 모드로 저장한 파일 "Dog백마리"에는 Dog 객체를 저장하였다.
+	// Dog 객체는 파일의 write 함수를 사용하여 객체 크기 그대로 저장하였다.
+
+	// 몇 객체인지 확인할 수 있는 방법?
+	// 1 - 파일 사이즈 / sizeof(Dog)
+	// 2 - 직접 읽어 몇 개인지 센다.
+	
+	std::ifstream in{ "Dog백마리", std::ios::binary };
+
+	if ( not in ) {
+		std::cout << "파일을 열 수 없습니다" << std::endl;
+		return 2022184025;
+	}
+
+	std::cout << "Dog의 수 - " << std::filesystem::file_size("Dog백마리") / sizeof(Dog) << std::endl;
+    
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+//-------------------------------------------------------------------
+// 2026 1학기 STL				3월 18일					(3주 2일)
+//------------------------------------------------------------------
+// 많은 수의 자료를 처리하기 - binary I/O
+//------------------------------------------------------------------
+// 오류 코드 예시임.
+
+#include <iostream>
+#include <print>
+#include <string>
+#include <array>
+#include <fstream>
+#include <filesystem>		// C++17
+
+#include "save.h"
+
+class Dog {
+	
+private:
+    std::string name;		// 10 이상 30 이하 임의의 소문자
+    int num;
+
+    friend std::ostream& operator<<(std::ostream& os, const Dog& dog) {
+	    std::print(os, "[{:4}] - {}", dog.num, dog.name);
+    	return os;
+    }
+
+	friend std::istream& operator>>(std::istream& is , const Dog& dog) {
+		is.read(( char* )&dog , sizeof(Dog));
+		return is;
+	}
+};
+
+int main()
+{
+    // [문제] 바이너리 모드로 저장한 파일 "Dog백마리"에는 Dog 객체를 저장하였다.
+	// Dog 객체는 파일의 write 함수를 사용하여 객체 크기 그대로 저장하였다.
+
+	// 몇 객체인지 확인할 수 있는 방법?
+	// 1 - 파일 사이즈 / sizeof(Dog)
+	// 2 - 직접 읽어 몇 개인지 센다.
+	
+	std::ifstream in{ "Dog백마리", std::ios::binary };
+
+	if ( not in ) {
+		std::cout << "파일을 열 수 없습니다" << std::endl;
+		return 2022184025;
+	}
+
+	Dog dog;
+	size_t cnt{};
+
+	while ( in >> dog ) {
+		++cnt;
+	}
+
+	std::cout << "Dog의 수 - " << cnt << std::endl;
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+//-------------------------------------------------------------------
+// 2026 1학기 STL				3월 18일					(3주 2일)
+//------------------------------------------------------------------
+// 많은 수의 자료를 처리하기 - binary I/O
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <random>
+#include <print>
+#include <array>
+#include <algorithm>
+
+#include "save.h"
+
+std::default_random_engine dre;
+std::uniform_int_distribution uid{ 0, 9999 };
+std::uniform_int_distribution uidNameLen{ 10, 30 };
+std::uniform_int_distribution<int> uidChar{ 'a', 'z' };
+
+class Dog {
+public:
+	Dog( ) {
+		num = uid(dre);
+		size_t len = uidNameLen(dre);
+		for ( int i = 0; i < len; ++i ) {
+			name += uidChar(dre);
+		}
+	}
+
+	std::string getName() const {
+		return name;
+	}
+private:
+	std::string name;		// 10 이상 30 이하 임의의 소문자
+	int num{ uid(dre) };
+
+	friend std::ostream& operator<<(std::ostream& os , const Dog& dog) {
+		std::print(os , "[{:4}] - {}" , dog.num , dog.name);
+		return os;
+	}
+};
+
+
+int main()
+{
+	std::array<Dog , 1000> dogs;
+	
+	std::sort(dogs.begin( ) , dogs.end( ) , [](const Dog& a , const Dog& b) {
+		return a.getName( ) < b.getName( );
+		});
+
+	for ( const Dog& dog : dogs ) {
+		std::cout << dog << std::endl;
+	}
+
+	save( "main.cpp" );		// "메인.cpp"를 저장하자
+}
+
+

@@ -2914,3 +2914,524 @@ int main( )
 	save("main.cpp");		// "메인.cpp"를 저장하자
 }
 
+====================================================================
+저장 시간 - 2026-04-01 11:36:48.1242774
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 1일					(5주 2일)
+//------------------------------------------------------------------
+// 호출가능한 타입 - callable type
+// 1. 함수
+// 2. lambda - 이름 없는 함수
+// 3. 함수 호출 연산자를 오버로딩 한 클래스
+// 4. 멤버 함수 포인터
+// 
+// 통합하여 function 클래스로 사용
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <array>
+#include <algorithm>
+
+#include "save.h"
+
+class Dog {
+public:
+	bool operator()(int a, int b) {
+		return a > b;
+	}
+};
+
+int main( )
+{
+	std::array<int , 10> a{ 3, 0, 7, 1, 2, 8, 9, 6, 5, 4 };
+
+	// ascending order
+	std::sort(a.begin( ) , a.end( ) , Dog{});
+
+	for ( int num : a )
+		std::cout << num << ' ';
+	std::cout << std::endl;
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-01 11:45:59.6701082
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 1일					(5주 2일)
+//------------------------------------------------------------------
+// 호출가능한 타입 - callable type
+// 1. 함수
+// 2. lambda - 이름 없는 함수
+// 3. 함수 호출 연산자를 오버로딩 한 클래스
+// 4. 멤버 함수 포인터
+// 
+// 통합하여 function 클래스로 사용
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <array>
+#include <algorithm>
+#include <functional>
+
+#include "save.h"
+
+bool 내림(int a , int b) 
+{
+	return a > b;
+}
+
+class Dog {
+public:
+	bool operator()(int a, int b) {
+		return a > b;
+	}
+};
+
+int main( )
+{
+	std::array<int , 10> a{ 3, 0, 7, 1, 2, 8, 9, 6, 5, 4 };
+
+	// 리턴값과 인자를 템플릿으로 받음
+	// std::function은 callable type을 가리킬 수 있음
+	std::function<bool(int , int)> f = 내림;
+	f = Dog{};
+	f = [](int a, int b) {
+			return a < b;
+		};
+
+	// ascending order
+	std::sort(a.begin( ) , a.end( ) , f);
+
+	for ( int num : a )
+		std::cout << num << ' ';
+	std::cout << std::endl;
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-01 12:08:57.4854192
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 1일					(5주 2일)
+//------------------------------------------------------------------
+// 연습
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <random>
+#include <print>
+
+#include "save.h"
+
+std::default_random_engine dre;
+std::uniform_int_distribution uidID { 1, 999'9999 };
+std::uniform_int_distribution uidLen{ 1, 16 };
+std::uniform_int_distribution uidChar{ 33, 122 };
+
+class Dog {
+public:
+	Dog( ) {
+		id = uidID(dre);
+		size_t len = uidLen(dre);
+		for ( int i = 0; i < len; ++i ) {
+			name += uidChar(dre);
+		}
+	}
+
+	friend std::ostream& operator<<(std::ostream& os , const Dog& dog) {
+		std::print(os , "[{:7}] {}" , dog.id , dog.name);
+		return os;
+	}
+private:
+	std::string name;	// [1, 16]
+	size_t		id;		// [1, 999'9999]
+};
+
+int main( )
+{
+	for ( int i = 0; i < 10; ++i ) {
+		std::cout << Dog{} << std::endl;
+	}
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-01 12:38:05.9632229
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 1일					(5주 2일)
+//------------------------------------------------------------------
+// 연습
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <random>
+#include <print>
+#include <array>
+#include <algorithm>
+#include <ranges>
+
+#include "save.h"
+
+std::default_random_engine dre;
+std::uniform_int_distribution uidID { 1, 999'9999 };
+std::uniform_int_distribution uidLen{ 1, 16 };
+std::uniform_int_distribution uidChar{ 33, 122 };
+
+class Dog {
+public:
+	Dog( ) {
+		id = uidID(dre);
+		size_t len = uidLen(dre);
+		for ( int i = 0; i < len; ++i ) {
+			name += uidChar(dre);
+		}
+	}
+
+	size_t getID( ) const {
+		return id;
+	}
+
+	friend std::ostream& operator<<(std::ostream& os , const Dog& dog) {
+		std::print(os , "[{:7}] {}" , dog.id , dog.name);
+		return os;
+	}
+private:
+	std::string name;	// [1, 16]
+	size_t		id;		// [1, 999'9999]
+};
+
+// [문제] 1000만개의 Dog 객체를 메모리에 저장하라.
+// sort를 사용하여 id 기준으로 오름차순 정렬하라.
+// 정렬한 객체를 앞에서부터 100개를 화면에 출력하라
+// - 필요한 interface 함수를 Dog에 추가해도 좋다.
+
+std::array<Dog , 1000'0000> arr;
+
+int main( )
+{
+	std::sort(arr.begin( ) , arr.end( ) , [](const Dog& a , const Dog& b) {
+		return a.getID() < b.getID();
+		});
+
+	for ( const Dog& dog : arr | std::views::take(100) ) {
+		std::cout << dog << std::endl;
+	}
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-01 12:44:00.8387497
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 1일					(5주 2일)
+//------------------------------------------------------------------
+// 연습
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <random>
+#include <print>
+#include <array>
+#include <algorithm>
+#include <ranges>
+
+#include "save.h"
+
+std::default_random_engine dre;
+std::uniform_int_distribution uidID { 1, 999'9999 };
+std::uniform_int_distribution uidLen{ 1, 16 };
+std::uniform_int_distribution uidChar{ 33, 122 };
+
+class Dog {
+public:
+	Dog( ) {
+		id = uidID(dre);
+		size_t len = uidLen(dre);
+		for ( int i = 0; i < len; ++i ) {
+			name += uidChar(dre);
+		}
+	}
+
+	size_t getID( ) const {
+		return id;
+	}
+
+	friend std::ostream& operator<<(std::ostream& os , const Dog& dog) {
+		std::print(os , "[{:7}] {}" , dog.id , dog.name);
+		return os;
+	}
+private:
+	std::string name;	// [1, 16]
+	size_t		id;		// [1, 999'9999]
+};
+
+// [문제] 1000만개의 Dog 객체를 메모리에 저장하라.
+// sort를 사용하여 id 기준으로 오름차순 정렬하라.
+// 정렬한 객체를 앞에서부터 100개를 화면에 출력하라
+// - 필요한 interface 함수를 Dog에 추가해도 좋다.
+
+std::array<Dog , 1000'0000> arr;
+
+int main( )
+{
+	/*std::sort(arr.begin( ) , arr.end( ) , [](const Dog& a , const Dog& b) {
+		return a.getID() < b.getID();
+		});*/
+
+	std::ranges::sort(arr , {}, &Dog::getID);	// 마지막 인자는 callable이어야 함 -> 포인터 사용
+
+	for ( const Dog& dog : arr | std::views::take(100) ) {
+		std::cout << dog << std::endl;
+	}
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-01 12:52:45.1287608
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 1일					(5주 2일)
+//------------------------------------------------------------------
+// 연습
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <random>
+#include <print>
+#include <array>
+#include <algorithm>
+#include <ranges>
+
+#include "save.h"
+
+std::default_random_engine dre;
+std::uniform_int_distribution uidID { 1, 999'9999 };
+std::uniform_int_distribution uidLen{ 1, 160 };
+std::uniform_int_distribution uidChar{ 33, 122 };
+
+class Dog {
+public:
+	Dog( ) {
+		id = uidID(dre);
+		size_t len = uidLen(dre);
+		for ( int i = 0; i < len; ++i ) {
+			name += uidChar(dre);
+		}
+	}
+
+	size_t getID( ) const {
+		return id;
+	}
+
+	std::string getName( ) const {
+		return name;
+	}
+
+	friend std::ostream& operator<<(std::ostream& os , const Dog& dog) {
+		std::print(os , "[{:7}] {}" , dog.id , dog.name);
+		return os;
+	}
+private:
+	std::string name;	// [1, 16]
+	size_t		id;		// [1, 999'9999]
+};
+
+// [문제] 1000만개의 Dog 객체를 메모리에 저장하라.
+// sort를 사용하여 name의 길이를 기준으로 오름차순 정렬하라.
+// 정렬한 객체를 앞에서부터 10000개를 화면에 출력하라
+// - 필요한 interface 함수를 Dog에 추가해도 좋다.
+
+std::array<Dog , 1000'0000> arr;
+
+int main( )
+{
+	/*std::sort(arr.begin( ) , arr.end( ) , [](const Dog& a , const Dog& b) {
+		return a.getID() < b.getID();
+		});*/
+
+	std::sort(arr.begin( ) , arr.end( ) , [](const Dog& a , const Dog& b) {
+		return a.getName().size() < b.getName().size();
+		});
+
+	// C++20
+	// std::ranges::sort(arr , {}, &Dog::getID);	// 마지막 인자는 callable이어야 함 -> 포인터 사용
+
+	for ( const Dog& dog : arr | std::views::take(10000) ) {
+		std::cout << dog << std::endl;
+	}
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-01 13:02:01.4283606
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 1일					(5주 2일)
+//------------------------------------------------------------------
+// 연습
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <random>
+#include <print>
+#include <array>
+#include <algorithm>
+#include <ranges>
+
+#include "save.h"
+
+std::default_random_engine dre;
+std::uniform_int_distribution uidID { 1, 999'9999 };
+std::uniform_int_distribution uidLen{ 1, 160 };
+std::uniform_int_distribution uidChar{ 33, 122 };
+
+class Dog {
+public:
+	Dog( ) {
+		id = uidID(dre);
+		size_t len = uidLen(dre);
+		for ( int i = 0; i < len; ++i ) {
+			name += uidChar(dre);
+		}
+	}
+
+	size_t getID( ) const {
+		return id;
+	}
+
+	std::string getName( ) const {
+		return name;
+	}
+
+	std::string& getName( ) {
+		return name;
+	}
+
+	friend std::ostream& operator<<(std::ostream& os , const Dog& dog) {
+		std::print(os , "[{:7}] {}" , dog.id , dog.name);
+		return os;
+	}
+private:
+	std::string name;	// [1, 16]
+	size_t		id;		// [1, 999'9999]
+};
+
+// [문제] 1000만개의 Dog 객체를 메모리에 저장하라.
+// sort를 사용하여 name을 알파벳 기준 오름차순으로 정렬하라.
+// 정렬한 객체를 앞에서부터 10000개를 화면에 출력하라
+// - 필요한 interface 함수를 Dog에 추가해도 좋다.
+
+std::array<Dog , 1000'0000> arr;
+
+int main( )
+{
+	/*std::sort(arr.begin( ) , arr.end( ) , [](const Dog& a , const Dog& b) {
+		return a.getID() < b.getID();
+		});*/
+
+	for ( Dog& dog : arr ) {
+		std::string& name = dog.getName( );
+		std::sort(name.begin( ) , name.end( ));
+	}
+
+	std::sort(arr.begin( ) , arr.end( ) , [](const Dog& a , const Dog& b) {
+		return a.getName().size() < b.getName().size();
+		});
+
+	// C++20
+	// std::ranges::sort(arr , {}, &Dog::getID);	// 마지막 인자는 callable이어야 함 -> 포인터 사용
+
+	for ( const Dog& dog : arr | std::views::take(1000) ) {
+		std::cout << dog << std::endl;
+	}
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-01 13:06:50.1818711
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 1일					(5주 2일)
+//------------------------------------------------------------------
+// 연습
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <random>
+#include <print>
+#include <array>
+#include <algorithm>
+#include <ranges>
+#include <fstream>
+
+#include "save.h"
+
+std::default_random_engine dre;
+std::uniform_int_distribution uidID { 1, 999'9999 };
+std::uniform_int_distribution uidLen{ 1, 16 };
+std::uniform_int_distribution uidChar{ 33, 122 };
+
+class Dog {
+public:
+	Dog( ) {
+		id = uidID(dre);
+		size_t len = uidLen(dre);
+		for ( int i = 0; i < len; ++i ) {
+			name += uidChar(dre);
+		}
+	}
+
+	size_t getID( ) const {
+		return id;
+	}
+
+	std::string getName( ) const {
+		return name;
+	}
+
+	std::string& getName( ) {
+		return name;
+	}
+
+	friend std::ostream& operator<<(std::ostream& os , const Dog& dog) {
+		std::print(os , "[{:7}] {}" , dog.id , dog.name);
+		return os;
+	}
+private:
+	std::string name;	// [1, 16]
+	size_t		id;		// [1, 999'9999]
+};
+
+// [문제] 1000만개의 Dog 객체를 메모리에 저장하라.
+// 바이너리 파일 "Dog천만마리"에 write함수를 사용하여 각 Dog 객체를 모두 저장하였다.
+// 
+
+std::array<Dog , 1000'0000> dogs;
+
+int main( )
+{
+	std::ofstream out{ "Dog천만마리", std::ios::binary };
+
+	out.write((char*)( dogs.data( ) ) , dogs.size( ) * sizeof(Dog));
+	
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+

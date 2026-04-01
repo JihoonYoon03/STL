@@ -13,13 +13,18 @@
 #include "save.h"
 
 class Dog {
+public:
+	Dog( ) : id(0) , name("") {}
+
 	friend std::ostream& operator<<(std::ostream& os , const Dog& dog) {
-		std::print("{:7}, {}" , dog.id , dog.name);
+		std::print(os, "{:7}, {}" , dog.id , dog.name);
 		return os;
 	}
 
-	Dog& operator=(Dog& other) {
-		*this = other;
+	Dog& operator=(const Dog& other) {
+		this->name = other.name;
+		this->id = other.id;
+		return *this;
 	}
 
 private:
@@ -42,7 +47,7 @@ int main( )
 		return 2022184025;
 	}
 
-	std::copy(std::istreambuf_iterator(in), std::istreambuf_iterator(in), dogs.begin());
+	in.read(reinterpret_cast< char* >( dogs.data( ) ) , sizeof(Dog) * dogs.size( ));
 
 	for ( const Dog& dog : dogs | std::views::take(100) ) {
 		std::cout << dog << std::endl;

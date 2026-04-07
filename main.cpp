@@ -1,57 +1,45 @@
 //------------------------------------------------------------------
-// 2026 1학기 STL				4월 1일					(5주 2일)
+// 2026 1학기 STL				4월 7일					(6주 1일)
 //------------------------------------------------------------------
-// 연습
+// STL 컨테이너 - std::string을 코딩하여 STL 컨테이너에 필요한 것들을 알아본다
 //------------------------------------------------------------------
 
 #include <iostream>
-#include <fstream>
-#include <array>
-#include <ranges>
+#include <memory>
 #include <print>
 
 #include "save.h"
 
-class Dog {
+class YString {
 public:
-	Dog( ) : id(0) , name("") {}
+	YString( ) = default;
 
-	friend std::ostream& operator<<(std::ostream& os , const Dog& dog) {
-		std::print(os, "{:7}, {}" , dog.id , dog.name);
-		return os;
-	}
+	YString(const char* s) {
+		len = std::strlen(s);
+		p = std::make_unique<char[]>(len);
+		memcpy(p.get( ) , s , len);
 
-	Dog& operator=(const Dog& other) {
-		this->name = other.name;
-		this->id = other.id;
-		return *this;
+		//std::cout << "생성(char*) 글자수: " << len << ", 주소: " << this << ", 글자주소: " << (void*)p.get() << std::endl;
+		std::println("생성(char*) 글자수: {}, 주소: {}, 글자주소: {}" , len , ( void* )this , ( void* )p.get( ));
 	}
 
 private:
-	std::string name;	// [1, 16]
-	size_t		id;		// [1, 999'9999]
+	size_t len{};
+	std::unique_ptr<char[]> p{};
+
+	friend std::ostream& operator<<(std::ostream& os , const YString& ys) {
+		for ( int i = 0; i < ys.len; ++i ) {
+			os << *( ys.p.get( ) + i );
+		}
+		return os;
+	}
 };
-
-// [문제] 바이너리 파일 "Dog천만마리"에는 write로 Dog 천만 객체를 기록하였다.
-// array에 모든 객체를 읽어와라.
-// 앞에서 100개를 화면에 출력하라
-
-std::array<Dog , 1000'0000> dogs;
 
 int main( )
 {
-	std::ifstream in{ "Dog천만마리", std::ios::binary };
+	YString s{ "2026년 4월 7일" };
 
-	if ( not in ) {
-		std::cout << "파일 읽기 문제 발생" << std::endl;
-		return 2022184025;
-	}
-
-	in.read(reinterpret_cast< char* >( dogs.data( ) ) , sizeof(Dog) * dogs.size( ));
-
-	for ( const Dog& dog : dogs | std::views::take(100) ) {
-		std::cout << dog << std::endl;
-	}
+	std::cout << "s - " << s << std::endl;
 
 	//save("main.cpp");		// "메인.cpp"를 저장하자
 }

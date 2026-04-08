@@ -133,9 +133,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="save.cpp" />
+    <ClCompile Include="YString.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="save.h" />
+    <ClInclude Include="YString.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

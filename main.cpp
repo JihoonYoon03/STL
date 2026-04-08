@@ -1,45 +1,60 @@
 //------------------------------------------------------------------
-// 2026 1학기 STL				4월 7일					(6주 1일)
+// 2026 1학기 STL				4월 8일					(6주 2일)
 //------------------------------------------------------------------
 // STL 컨테이너 - std::string을 코딩하여 STL 컨테이너에 필요한 것들을 알아본다
 //------------------------------------------------------------------
 
 #include <iostream>
-#include <memory>
-#include <print>
+#include <array>
+#include <algorithm>
 
 #include "save.h"
+#include "YString.h"
 
-class YString {
-public:
-	YString( ) = default;
-
-	YString(const char* s) {
-		len = std::strlen(s);
-		p = std::make_unique<char[]>(len);
-		memcpy(p.get( ) , s , len);
-
-		//std::cout << "생성(char*) 글자수: " << len << ", 주소: " << this << ", 글자주소: " << (void*)p.get() << std::endl;
-		std::println("생성(char*) 글자수: {}, 주소: {}, 글자주소: {}" , len , ( void* )this , ( void* )p.get( ));
-	}
-
-private:
-	size_t len{};
-	std::unique_ptr<char[]> p{};
-
-	friend std::ostream& operator<<(std::ostream& os , const YString& ys) {
-		for ( int i = 0; i < ys.len; ++i ) {
-			os << *( ys.p.get( ) + i );
-		}
-		return os;
-	}
-};
+extern bool observe;
 
 int main( )
 {
-	YString s{ "2026년 4월 7일" };
 
-	std::cout << "s - " << s << std::endl;
+	std::array<YString , 5> a{ "333", "1", "55555", "4444", "22" };
+
+	observe = true;
+
+	// 오름차순으로 정렬하라
+	std::sort(a.begin( ) , a.end( ) , [](const YString& a, const YString& b) {
+		return a.getLen( ) < b.getLen( );
+		});
+	observe = false;
+
+	for ( YString& s : a ) {
+		std::cout << s << std::endl;
+	}
 
 	//save("main.cpp");		// "메인.cpp"를 저장하자
 }
+
+/*
+이동생성자가 없는 경우의 정렬
+[       6] 복사생성 - 객체:0X00004172AFF720 글자:0X00016AF1133200 개수:1    내용:1
+[       2] 복사할당 - 객체:0X00004172AFF808 글자:0X00016AF11332F0 개수:3    내용:333
+[       1] 복사할당 - 객체:0X00004172AFF7F0 글자:0X00016AF1133210 개수:1    내용:1
+[       6] 소멸     - 객체:0X00004172AFF720 글자:0X00016AF1133200 개수:1    내용:1
+[       7] 복사생성 - 객체:0X00004172AFF720 글자:0X00016AF1133220 개수:5    내용:55555
+[       3] 복사할당 - 객체:0X00004172AFF820 글자:0X00016AF1133150 개수:5    내용:55555
+[       7] 소멸     - 객체:0X00004172AFF720 글자:0X00016AF1133220 개수:5    내용:55555
+[       8] 복사생성 - 객체:0X00004172AFF720 글자:0X00016AF1133170 개수:4    내용:4444
+[       4] 복사할당 - 객체:0X00004172AFF838 글자:0X00016AF1133160 개수:5    내용:55555
+[       3] 복사할당 - 객체:0X00004172AFF820 글자:0X00016AF1133180 개수:4    내용:4444
+[       8] 소멸     - 객체:0X00004172AFF720 글자:0X00016AF1133170 개수:4    내용:4444
+[       9] 복사생성 - 객체:0X00004172AFF720 글자:0X00016AF11331F0 개수:2    내용:22
+[       5] 복사할당 - 객체:0X00004172AFF850 글자:0X00016AF1133200 개수:5    내용:55555
+[       4] 복사할당 - 객체:0X00004172AFF838 글자:0X00016AF1133190 개수:4    내용:4444
+[       3] 복사할당 - 객체:0X00004172AFF820 글자:0X00016AF1133150 개수:3    내용:333
+[       2] 복사할당 - 객체:0X00004172AFF808 글자:0X00016AF1133220 개수:2    내용:22
+[       9] 소멸     - 객체:0X00004172AFF720 글자:0X00016AF11331F0 개수:2    내용:22
+1
+22
+333
+4444
+55555
+*/

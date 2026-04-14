@@ -1,5 +1,5 @@
 //------------------------------------------------------------------
-// í•œ í•™ê¸° ê°•ì˜ë¥¼ ì €ì¥í•˜ëŠ” í•¨ìˆ˜
+// ÇÑ ÇĞ±â °­ÀÇ¸¦ ÀúÀåÇÏ´Â ÇÔ¼ö
 // 
 // 2026. 3. 4												jihoon
 //------------------------------------------------------------------
@@ -12,30 +12,30 @@
 
 void save(const std::string& fname)
 {
-	std::cout << '\"' << fname << "\" ì €ì¥í•©ë‹ˆë‹¤" << '\n';
+	std::cout << '\"' << fname << "\" ÀúÀåÇÕ´Ï´Ù" << '\n';
 
 	std::ifstream in{ fname };		// RAII - Resource Acquisition Is Initialization
 	if (not in)
 	{
-		std::cout << fname << " - ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤" << '\n';
+		std::cout << fname << " - ¿­ ¼ö ¾ø½À´Ï´Ù" << '\n';
 		exit(20260304);
 	}
 
-	std::ofstream out{ "2026 1í•™ê¸° STL.txt", std::ios::app };
+	std::ofstream out{ "2026 1ÇĞ±â STL.txt", std::ios::app };
 
-	// ì €ì¥í•œ ì‹œê°„ì„ outì— ê¸°ë¡í•˜ì
+	// ÀúÀåÇÑ ½Ã°£À» out¿¡ ±â·ÏÇÏÀÚ
 	// std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-	// ì‹œê°„ì„ í•œê¸€ë¡œ ì €ì¥í•˜ì
+	// ½Ã°£À» ÇÑ±Û·Î ÀúÀåÇÏÀÚ
 	auto now = std::chrono::system_clock::now();
 	using namespace std::chrono_literals;
 
 	out << "====================================================================" << '\n';
-	out << "ì €ì¥ ì‹œê°„ - " << now + 9h << '\n';
+	out << "ÀúÀå ½Ã°£ - " << now + 9h << '\n';
 	out << "====================================================================" << '\n';
 	out << '\n';
 
-	// inì˜ ë‚´ìš©ì„ ì½ì–´ì„œ outì— ë§ë¶™ì´ì.
-	// std::copy(ì›ë³¸, ë³µì‚¬ë³¸)
+	// inÀÇ ³»¿ëÀ» ÀĞ¾î¼­ out¿¡ µ¡ºÙÀÌÀÚ.
+	// std::copy(¿øº», º¹»çº»)
 	std::copy(std::istreambuf_iterator<char>{ in }, {},
 		std::ostream_iterator<char>{ out });
 

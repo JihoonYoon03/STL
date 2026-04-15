@@ -4220,3 +4220,393 @@ int main( )
 	save("main.cpp");		// "메인.cpp"를 저장하자 
 }
 
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 15일					(7주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N> - 유일하게 크기 고정된 자료구조
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <array>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	std::array<int , 5> a{ 1, 2, 3, 4, 5 };
+
+	// element access
+	// at, operator[], front, back, data
+
+	while ( true ) {
+		std::cout << "몇 번째 값을 알려줄까요? ";
+		int num;
+		std::cin >> num;
+
+		try {
+			// at() - 값 검사를 하려는 의도가 있다면
+			// []에 해당 기능이 없는 이유 - 함수 호출 속도까지도 줄이기 위함
+			std::cout << num << " 번째 값은 - " << a.at(num) << std::endl;
+		}
+		catch (std::exception e) {
+			std::cout << e.what( ) << "- 유효 범위는 [0, 4]" << std::endl;
+		}
+	}
+
+	//save("main.cpp");		// "메인.cpp"를 저장하자 
+}
+
+====================================================================
+저장 시간 - 2026-04-15 12:04:47.8849417
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 15일					(7주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	std::vector<int> v{ 1, 2, 3, 4, 5, };
+
+	std::cout << "v의 크기 - " << sizeof( v ) << std::endl;
+	std::cout << "v의 주소 - " << std::addressof(v) << std::endl;
+	std::cout << "v의 타입 - " << typeid( v ).name( ) << std::endl;
+	std::cout << "v의 자료 - " << v.data() << std::endl;
+
+	save("main.cpp");		// "메인.cpp"를 저장하자 
+}
+
+====================================================================
+저장 시간 - 2026-04-15 12:05:21.8434241
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 15일					(7주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+std::vector<int> v{ 1, 2, 3, 4, 5, };
+
+int main( )
+{
+
+	std::cout << "v의 크기 - " << sizeof( v ) << std::endl;
+	std::cout << "v의 주소 - " << std::addressof(v) << std::endl;
+	std::cout << "v의 타입 - " << typeid( v ).name( ) << std::endl;
+	std::cout << "v의 자료 - " << v.data() << std::endl;
+
+	save("main.cpp");		// "메인.cpp"를 저장하자 
+}
+
+====================================================================
+저장 시간 - 2026-04-15 12:08:36.7070373
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 15일					(7주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	std::vector<int> v{ 1, 2, 3, 4, 5, };
+
+	// 핵심 벡터 정보들
+	std::cout << "v에 저장된 원소 수 - " << v.size( ) << std::endl;
+	std::cout << "v가 확보한 capacity - " << v.capacity( ) << std::endl;
+	std::cout << "v의 원소가 저장된 주소 - " << v.data( ) << std::endl;
+
+	v.push_back(6);
+
+	std::cout << "원소 추가 후" << std::endl;
+	std::cout << "v에 저장된 원소 수 - " << v.size( ) << std::endl;
+	std::cout << "v가 확보한 capacity - " << v.capacity( ) << std::endl;
+	std::cout << "v의 원소가 저장된 주소 - " << v.data( ) << std::endl;
+
+	save("main.cpp");		// "메인.cpp"를 저장하자 
+}
+
+====================================================================
+저장 시간 - 2026-04-15 12:32:40.8666238
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 15일					(7주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	class YYY {
+	};
+	std::vector<int> v{ 1, 2, 3, 4, 5, };
+
+	std::cout << "벡터가 담을 수 있는 최대 YYY 개수" << v.max_size( ) << std::endl;
+
+	save("main.cpp");		// "메인.cpp"를 저장하자 
+}
+
+====================================================================
+저장 시간 - 2026-04-15 12:45:53.8994333
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 15일					(7주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <fstream>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	// [문제] "main.cpp" 에 있는 글자를 모두 읽어 메모리에 저장하라.
+	std::vector<char> v;
+	std::ifstream in{ "main.cpp" };
+
+	if ( not in ) {
+		std::cout << "파일 문제 발생!" << std::endl;
+		return 2022184025;
+	}
+
+	// 원소 추가는 v.push_back(한글자);
+	char c;
+	in >> std::noskipws;
+	while ( in >> c ) {
+		v.push_back(c);
+	}
+
+	for ( auto i = v.begin( ); i != v.end( ); ++i ) {
+		std::cout << *i;
+	}
+
+	/*for ( char c : v ) {
+		std::cout << c;
+	}*/
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-15 12:47:31.1046846
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 15일					(7주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <fstream>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	// [문제] "main.cpp" 에 있는 글자를 모두 읽어 메모리에 저장하라.
+	std::ifstream in{ "main.cpp" };
+
+	if ( not in ) {
+		std::cout << "파일 문제 발생!" << std::endl;
+		return 2022184025;
+	}
+
+	std::vector<char> v{ std::istreambuf_iterator(in), {} };
+
+	for ( auto i = v.begin( ); i != v.end( ); ++i ) {
+		std::cout << *i;
+	}
+
+	/*for ( char c : v ) {
+		std::cout << c;
+	}*/
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-15 13:07:59.1511022
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 15일					(7주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	// [문제] 키보드에서 입력한 단어를 메모리에 저장하라.
+	// 오름차순으로 정렬하라.
+	// 화면에 출력하라.
+	// 키보드 입력의 끝 - Ctrl + Z
+
+	std::vector<std::string> words;
+
+	std::string word;
+
+	std::cout << "원하는 만큼 단어를 입력하세요. 입력 종료는 Ctrl + Z" << std::endl;
+	while ( std::cin >> word ) {
+		words.push_back(word);
+	}
+	std::cout << "\n입력 종료 =======================\n" << std::endl;
+
+	std::sort(words.begin( ) , words.end( ));
+
+	for ( const std::string& word : words ) {
+		std::cout << word << std::endl;
+	}
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-15 13:10:50.7806258
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 15일					(7주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	// [문제] 키보드에서 입력한 단어를 메모리에 저장하라.
+	// 오름차순으로 정렬하라.
+	// 화면에 출력하라.
+	// 키보드 입력의 끝 - Ctrl + Z
+
+	std::cout << "원하는 만큼 단어를 입력하세요. 입력 종료는 Ctrl + Z" << std::endl;
+	std::vector<std::string> words{ std::istream_iterator<std::string>{std::cin }, {} };
+
+
+	std::cout << "\n입력 종료 =======================\n" << std::endl;
+
+	std::sort(words.begin( ) , words.end( ));
+
+	std::copy(words.begin( ) , words.end( ) , std::ostream_iterator<std::string>{ std::cout , "\n"});
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-15 13:18:50.2360094
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 15일					(7주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	// [문제] 키보드에서 입력한 정수의 합을 출력하라
+
+	std::cout << "수 입력: " << std::accumulate(std::istream_iterator<int>{std::cin} , {} , 0);
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+

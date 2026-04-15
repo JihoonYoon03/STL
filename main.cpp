@@ -1,12 +1,15 @@
 //------------------------------------------------------------------
-// 2026 1학기 STL				4월 14일					(7주 1일)
+// 2026 1학기 STL				4월 15일					(7주 2일)
 //------------------------------------------------------------------
 // STL Container - Containers are objects that store other objects.
-// array<T, N> - 유일하게 크기 고정된 자료구조
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
 //------------------------------------------------------------------
 
 #include <iostream>
-#include <array>
+#include <vector>
+#include <algorithm>
+#include <numeric>
 
 #include "save.h"
 #include "YString.h"
@@ -15,18 +18,9 @@ extern bool observe;
 
 int main( )
 {
-	std::array<int , 5> a{ 1, 2, 3, 4, 5 };
+	// [문제] 키보드에서 입력한 정수의 합을 출력하라
 
-	// element access
-	// at, operator[], front, back, data
+	std::cout << "수 입력: " << std::accumulate(std::istream_iterator<int>{std::cin} , {} , 0);
 
-	while ( true ) {
-		std::cout << "몇 번째 값을 알려줄까요? ";
-		int num;
-		std::cin >> num;
-
-		std::cout << num << " 번째 값은 - " << a[num] << std::endl;
-	}
-
-	//save("main.cpp");		// "메인.cpp"를 저장하자 
+	save("main.cpp");		// "메인.cpp"를 저장하자
 }

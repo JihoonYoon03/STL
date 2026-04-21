@@ -4610,3 +4610,419 @@ int main( )
 	save("main.cpp");		// "메인.cpp"를 저장하자
 }
 
+====================================================================
+저장 시간 - 2026-04-21 13:34:32.6682559
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 21일					(8주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	observe = true;
+	YString ys{ "2026년 4월 21일 화요일 56교시" };
+	std::cout << ys << std::endl;
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-21 13:47:39.3490593
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 21일					(8주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	YString ys{ "2026년 4월 21일 화요일 56교시" };
+	std::cout << "컨테이너의 원소 개수 - " << ys.size() << std::endl;
+	std::cout << "데이터는 어디에?     - " << (void*)ys.data() << std::endl;
+
+	observe = true;
+	ys.show();
+	observe = false;
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-21 13:52:07.7147877
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 21일					(8주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	std::vector<YString> v{ "2026년", "4월", "21일" };
+
+	for ( YString& ys : v ) {
+		ys.show( );
+	}
+	
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-21 13:59:15.4187480
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 21일					(8주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	std::vector<int> v;
+
+	std::cout << "v의 원소 개수   - " << v.size( ) << std::endl;
+	std::cout << "v의 용량        - " << v.capacity( ) << std::endl;
+	std::cout << "v가 저장한 위치 - " << v.data( ) << std::endl;
+
+	v.push_back(1);
+
+	std::cout << std::endl;
+	std::cout << "원소 한 개 추가" << std::endl;
+	std::cout << "v의 원소 개수   - " << v.size( ) << std::endl;
+	std::cout << "v의 용량        - " << v.capacity( ) << std::endl;
+	std::cout << "v가 저장한 위치 - " << v.data( ) << std::endl;
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 21일					(8주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	std::vector<int> v;
+
+	// VS는 벡터 용량을 1.5배씩 늘린다. free stor에.
+	// 시험에서 heap 용어를 쓰거나 배우지 않은 내용 적으면 무조건 감점
+	// 메모리 그림으로 한 번은 그려보자
+	while ( true ) {
+		if ( v.size( ) == v.capacity( ) ) {
+			std::cout << "v의 원소 개수   - " << v.size( ) << std::endl;
+			std::cout << "v의 용량        - " << v.capacity( ) << std::endl;
+			std::cout << "v가 저장한 위치 - " << v.data( ) << std::endl;
+			std::cout << std::endl;
+		}
+		v.push_back(1);
+	}
+
+	//save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-21 14:50:38.4766923
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 21일					(8주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	observe = true;
+	std::vector<YString> v;
+
+	// v에 담을 공간이 없으므로(capacity = 0)
+	// free-store에 공간 하나 할당
+	// "2026년"을 갖는 YString instance를 Stack에 생성자로 생성
+	// 만들어진 instance를 벡터가 관리하는 free-store에 이동생성
+	// (우리가 이동 생성 정의한 대로 생성됨)
+	// push_back 종료, 기존 instance 소멸
+	v.push_back("2026년");
+	std::cout << std::endl;
+
+	// v에 담을 공간이 없으므로(capacity = 1)
+	// free-store에 2개분 공간 할당
+	// "4월 21일"을 갖는 YString instance를 Stack에 생성자로 생성
+	// 만들어진 instance와 기존 벡터가 가진 원소를
+	// 벡터가 관리하는 새로운 free-store에 이동생성
+	// push_back 종료, 기존 벡터 소멸 -> instance 2개 소멸
+	v.push_back("4월 21일");
+	std::cout << std::endl;
+
+	// 동일 과정
+	v.push_back("화요일 56교시");
+
+	std::cout << "관찰" << std::endl;
+	std::cout << v[ 0 ] << v[ 1 ] << v[ 2 ] << std::endl;
+	observe = false;
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-21 14:52:16.9381461
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 21일					(8주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	observe = true;
+	std::vector<YString> v;
+
+	// 매 번 벡터 이동/소멸 없이 미리 공간 할당
+	v.reserve(10);
+
+	v.push_back("2026년");
+	std::cout << std::endl;
+
+	v.push_back("4월 21일");
+	std::cout << std::endl;
+
+	// 동일 과정
+	v.push_back("화요일 56교시");
+
+	std::cout << "관찰" << std::endl;
+	std::cout << v[ 0 ] << v[ 1 ] << v[ 2 ] << std::endl;
+	observe = false;
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-21 14:55:42.6153885
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 21일					(8주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	std::vector<YString> v;
+
+	// 매 번 벡터 이동/소멸 없이 미리 공간 할당
+	v.reserve(10);
+
+	v.push_back("2026년");
+	std::cout << std::endl;
+
+	v.push_back("4월 21일");
+	std::cout << std::endl;
+
+	// 동일 과정
+	v.push_back("화요일 56교시");
+
+	observe = true;
+	for ( YString& ys : v ) {
+		ys.show();
+	}
+	observe = false;
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-21 15:04:01.1034932
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 21일					(8주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	observe = true;
+	std::vector<YString> v;
+
+	// 매 번 벡터 이동/소멸 없이 미리 공간 할당
+	// 생성자는 메모리를 만들지 않고, 소멸자는 메모리를 소멸시키지 않는다.
+	// 생성자는 할당받은 메모리를 채우고, 소멸자는 메모리 해제 전 비운다.
+	// Modern C++ 이전 -> vector.reserve(10) 해서 메모리 할당받은 뒤
+	// 생성된 임시 객체를 이동
+
+	// Modern C++
+	// 메모리 할당과 동시에 임시 객체 생성 없이 바로 채운다.
+	// emplace_back() - 인자로 (Ystring{}) 하여 임시 객체 생성 않도록 하자.
+	// 재료(생성자 인자)만 준다 생각하자
+
+	v.reserve(10);
+
+	v.emplace_back("2026년");
+	std::cout << std::endl;
+
+	v.emplace_back("4월 21일");
+	std::cout << std::endl;
+
+	// 동일 과정
+	v.emplace_back("화요일 56교시");
+
+	observe = false;
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-04-21 15:19:19.2230062
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 21일					(8주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <fstream>
+#include <array>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	// [문제] "main.cpp"의 소문자 개수를 세서 다음과 같이 출력하라
+	// a - 10
+	// b - 3
+	// 중간 생략
+
+	std::ifstream in{ "main.cpp" };
+
+	std::array<int , 26> count{};
+
+	if ( not in ) {
+		return 20260421;
+	}
+
+	char c;
+	while ( in >> c ) {
+		if ( islower(c) )
+			++count[ c - 'a'];
+	}
+
+	for ( int i = 0; i < count.size( ); ++i ) {
+		std::cout << static_cast< char >('a' + i) << " - " << count[ i ] << std::endl;
+	}
+}
+

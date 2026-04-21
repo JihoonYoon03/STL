@@ -25,6 +25,11 @@ public:
 	YString& operator=(YString&&) noexcept;
 
 	size_t getLen( ) const;
+	void show( );		// 2026. 4. 21 special 한 순간이 아닐 때 관찰
+
+	// 표준 컨테이너라면 다음 멤버를 제공해야
+	size_t size( ) const;	// 2026. 4. 21
+	char* data( ) const;	// 2026. 4. 21
 
 private:
 	size_t id{};

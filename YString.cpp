@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <print>
+#include <algorithm>
 
 #include "YString.h"
 
@@ -62,6 +63,23 @@ YString& YString::operator=(const YString& other)
 	memcpy(p.get( ) , other.p.get( ) , len);
 
 	observation("복사할당");
+}
+
+// 2026. 4. 26
+bool YString::operator==(const YString& rhs) const
+{
+	// id, len, p같다. p가 가리키는 메모리에 저장된 문자들이 같아야 같은 것이라 정의
+	if ( len != rhs.len )
+		return false;
+
+	return std::equal(p.get( ) , p.get( ) + len , rhs.p.get( ));
+
+	/*for ( int i = 0; i < len; ++i ) {
+		if ( p[ i ] != rhs.p[ i ] )
+			return false;
+	}
+
+	return true;*/
 }
 
 // 2026.4.8 

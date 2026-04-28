@@ -24,6 +24,9 @@ public:
 	YString(YString&&) noexcept;
 	YString& operator=(YString&&) noexcept;
 
+	// 2026. 4. 28
+	bool operator==(const YString& rhs) const;
+
 	size_t getLen( ) const;
 	void show( );		// 2026. 4. 21 special 한 순간이 아닐 때 관찰
 

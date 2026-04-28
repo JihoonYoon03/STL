@@ -5026,3 +5026,276 @@ int main( )
 	}
 }
 
+====================================================================
+저장 시간 - 2026-04-28 14:04:18.4090116
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 28일					(9주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	std::vector<int> v{ 1, 2, 3, 4, 5 };
+
+	// [문제] v에서 3을 제거하라
+	// v.size() == 4
+	// v.capacity() == 5
+	// v.data() 동일
+	// v의 원소는 { 1, 2, 4, 5 }
+
+	// std::remove를 사용하면 된다
+	std::remove(v.begin( ) , v.end( ) , 3);
+
+	std::cout << "size: " << v.size( ) << std::endl;
+	std::cout << "capacity: " << v.capacity( ) << std::endl;
+	std::cout << "data: " << v.data( ) << std::endl;
+	
+	for (const int& num : v)
+		std::cout << num << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-04-28 15:00:34.4597827
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 28일					(9주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+// 
+// 어떤 자료구조던지, Iterator는 ++ptr 한 뒤 *ptr 할 수 있다.
+// Design pattern
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	std::vector<int> v{ 1, 2, 3, 4, 5 };
+
+	// [문제] v에서 3을 제거하라
+	// v.size() == 4
+	// v.capacity() == 5
+	// v.data() 동일
+	// v의 원소는 { 1, 2, 4, 5 }
+
+	// std::remove를 사용하면 된다
+	// remove의 반환값은 데이터 삭제 후 새로운 end 위치이다.
+	std::vector<int>::iterator newEnd = std::remove(v.begin( ) , v.end( ) , 3);
+	v.erase(newEnd, v.end());
+
+	std::cout << "size: " << v.size( ) << std::endl;
+	std::cout << "capacity: " << v.capacity( ) << std::endl;
+	std::cout << "data: " << v.data( ) << std::endl;
+	
+	for (const int& num : v)
+		std::cout << num << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-04-28 15:01:37.1213906
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 28일					(9주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+// 
+// 어떤 자료구조던지, Iterator는 ++ptr 한 뒤 *ptr 할 수 있다.
+// Design pattern
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	std::vector<int> v{ 1, 2, 3, 4, 5 };
+
+	// [문제] v에서 3을 제거하라
+	// v.size() == 4
+	// v.capacity() == 5
+	// v.data() 동일
+	// v의 원소는 { 1, 2, 4, 5 }
+
+	// std::remove를 사용하면 된다
+	// remove의 반환값은 데이터 삭제 후 새로운 end 위치이다.
+	// 아래 문장은 너무 유명해서 erase-remove idiom이라고 말한다.
+	v.erase(std::remove(v.begin( ) , v.end( ) , 3) , v.end( ));
+
+	std::cout << "size: " << v.size( ) << std::endl;
+	std::cout << "capacity: " << v.capacity( ) << std::endl;
+	std::cout << "data: " << v.data( ) << std::endl;
+	
+	for (const int& num : v)
+		std::cout << num << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-04-28 15:04:03.2562609
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 28일					(9주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+// 
+// 어떤 자료구조던지, Iterator는 ++ptr 한 뒤 *ptr 할 수 있다.
+// Design pattern
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	std::vector<int> v{ 1, 2, 3, 4, 5 };
+
+	// [문제] v에서 3을 제거하라
+	// v.erase(std::remove(v.begin( ) , v.end( ) , 3) , v.end( ));
+	// C++ 20부터
+	std::erase(v , 3);
+
+	std::cout << "size: " << v.size( ) << std::endl;
+	std::cout << "capacity: " << v.capacity( ) << std::endl;
+	std::cout << "data: " << v.data( ) << std::endl;
+	
+	for (const int& num : v)
+		std::cout << num << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-04-28 15:19:40.5043582
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 28일					(9주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+// 
+// 어떤 자료구조던지, Iterator는 ++ptr 한 뒤 *ptr 할 수 있다.
+// Design pattern
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	std::vector<YString> v{ "1", "22", "333" };
+
+	// [문제] v에서 "22"를 제거하라
+
+	std::remove(v.begin(), v.end(), "22"), v.end();
+
+	std::cout << "size: " << v.size( ) << std::endl;
+	std::cout << "capacity: " << v.capacity( ) << std::endl;
+	std::cout << "data: " << v.data( ) << std::endl;
+	
+	observe = true;
+	for (YString& str : v)
+		str.show();
+	observe = false;
+}
+
+====================================================================
+저장 시간 - 2026-04-28 15:20:18.0126931
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 28일					(9주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+// 
+// 어떤 자료구조던지, Iterator는 ++ptr 한 뒤 *ptr 할 수 있다.
+// Design pattern
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	std::vector<YString> v{ "1", "22", "333" };
+
+	// [문제] v에서 "22"를 제거하라
+
+	std::erase(v , "22");
+
+	std::cout << "size: " << v.size( ) << std::endl;
+	std::cout << "capacity: " << v.capacity( ) << std::endl;
+	std::cout << "data: " << v.data( ) << std::endl;
+	
+	observe = true;
+	for (YString& str : v)
+		str.show();
+	observe = false;
+}
+

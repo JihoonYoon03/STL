@@ -5299,3 +5299,466 @@ int main( )
 	observe = false;
 }
 
+====================================================================
+저장 시간 - 2026-04-29 11:32:48.3438570
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 29일					(9주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+// 
+// 어떤 자료구조던지, Iterator는 ++ptr 한 뒤 *ptr 할 수 있다.
+// Design pattern
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	std::vector<YString> v{ "1", "22", "333", "44", "55555", "66" };
+	// [문제] v에서 길이가 2인 element를 다 삭제해 주세요.
+	std::erase_if(v , [](const YString& str) {
+		return str.getLen( ) == 2;
+		});
+		
+	/*auto newEnd = std::remove_if(v.begin( ) , v.end( ) , [](const YString& str) {
+		return str.getLen( ) == 2;
+		});
+	v.erase(newEnd, v.end());*/
+
+	for ( const YString& str : v ) {
+		std::cout << str << std::endl;
+	}
+}
+
+====================================================================
+저장 시간 - 2026-04-29 11:51:02.3252355
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 29일					(9주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+// 
+// 어떤 자료구조던지, Iterator는 ++ptr 한 뒤 *ptr 할 수 있다.
+// Design pattern
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <list>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	std::vector<YString> v{ "1", "22", "4444", "55555" };
+	// [문제] "22" 다음에 "333"을 추가하라.
+	observe = true;
+	v.insert(v.begin() + 2 , "333");
+	observe = false;
+
+	for ( const auto& str : v ) {
+		std::cout << str << std::endl;
+	}
+}
+
+====================================================================
+저장 시간 - 2026-04-29 11:56:12.2797477
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 29일					(9주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조
+// vector<T>	- dynamic array
+// 
+// 어떤 자료구조던지, Iterator는 ++ptr 한 뒤 *ptr 할 수 있다.
+// Design pattern
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <list>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	std::list<YString> v{ "1", "22", "4444", "55555" };
+	// [문제] "22" 다음에 "333"을 추가하라.
+	observe = true;
+	auto i = v.begin( );
+	std::advance(i , 2);
+	v.insert( i , "333");
+	observe = false;
+
+	for ( const auto& str : v ) {
+		std::cout << str << std::endl;
+	}
+}
+
+====================================================================
+저장 시간 - 2026-04-29 11:57:22.6916961
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 29일					(9주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// 
+// list와 vector의 차이
+// 리스트는 데이터의 삽입에 유리, 할당받은 메모리가 퍼져 있으므로 캐시 적중률 낮음 -> 속도 저하,
+// 각 원소마다 포인터 2개만큼의 메모리 추가 할당
+// 벡터는 random access에 유리, contiguous 한 메모리기 때문에 캐시 적중률 매우 높음 -> 속도 빠름
+// 이 둘의 장점을 이용하려 한 자료구조가 deque(덱), 노드 기반이지만 각 노드에 데이터가 여러 개 들어감
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <list>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	std::list<YString> v{ "1", "22", "4444", "55555" };
+	// [문제] "22" 다음에 "333"을 추가하라.
+	observe = true;
+	auto i = v.begin( );
+	std::advance(i , 2);
+	v.emplace( i , "333");
+	observe = false;
+
+	for ( const auto& str : v ) {
+		std::cout << str << std::endl;
+	}
+}
+
+====================================================================
+저장 시간 - 2026-04-29 12:52:21.6173951
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 29일					(9주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조 -> STACK, DATA
+// vector<T>	- dynamic array -> random access(임의의 위치에 접근 시간이 O(1))
+// list<T>		- 임의의 위치에서 추가/제거 동작이 O(1)
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <list>
+#include <vector>
+#include <algorithm>
+#include <ranges>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	std::list<YString> c{ "333", "1", "55555", "4444", "22" };
+
+	// [문제] 길이 기준 오름차순으로 정렬
+	// list는 contiguous 메모리가 아님 -> algorithm, ranges의 정렬 사용 불가능
+	// 따라서 자체 멤버 함수로 제공, 포인터만 옮겨 sort
+	observe = true;
+	c.sort([](const YString& a, const YString& b ) {
+		return a.size() < b.size();
+		});
+	observe = false;
+
+	for ( const YString& ys : c ) {
+		std::cout << ys << std::endl;
+	}
+}
+
+====================================================================
+저장 시간 - 2026-04-29 13:05:10.9736478
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 29일					(9주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조 -> STACK, DATA
+// vector<T>	- dynamic array -> random access(임의의 위치에 접근 시간이 O(1))
+// list<T>		- 임의의 위치에서 추가/제거 동작이 O(1)
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <list>
+#include <fstream>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	// [문제] 파일에 있는 단어를 list에 저장하라
+	// list를 사전 기준으로 오름차순 정렬하라
+	// 화면에 출력하라
+
+	std::ifstream in{ "2026 1학기 STL.txt" };
+
+	if ( not in ) {
+		std::cout << "파일이 없음" << std::endl;
+		return 20260429;
+	}
+
+	std::list<YString> c{ std::istream_iterator<YString>(in), {} };
+
+	std::cout << "마지막 객체" << std::endl;
+	c.back( ).show( );
+}
+
+// 이게 마지막이어야 한다
+
+====================================================================
+저장 시간 - 2026-04-29 13:07:22.0938040
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 29일					(9주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조 -> STACK, DATA
+// vector<T>	- dynamic array -> random access(임의의 위치에 접근 시간이 O(1))
+// list<T>		- 임의의 위치에서 추가/제거 동작이 O(1)
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <list>
+#include <fstream>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	// [문제] 파일에 있는 단어를 list에 저장하라
+	// list를 사전 기준으로 오름차순 정렬하라
+	// 화면에 출력하라
+
+	std::ifstream in{ "2026 1학기 STL.txt" };
+
+	if ( not in ) {
+		std::cout << "파일이 없음" << std::endl;
+		return 20260429;
+	}
+
+	std::cout << "파일 읽는 중";
+	std::list<YString> c{ std::istream_iterator<YString>(in), {} };
+	std::cout << std::endl;
+
+	for ( const YString& ys : c ) {
+		std::cout << ys << std::endl;
+	}
+}
+
+//이게마지막이어야한다
+
+====================================================================
+저장 시간 - 2026-04-29 13:10:55.4646721
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 29일					(9주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조 -> STACK, DATA
+// vector<T>	- dynamic array -> random access(임의의 위치에 접근 시간이 O(1))
+// list<T>		- 임의의 위치에서 추가/제거 동작이 O(1)
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <list>
+#include <fstream>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	// [문제] 파일에 있는 단어를 list에 저장하라
+	// list를 사전 기준으로 오름차순 정렬하라
+	// 화면에 출력하라
+
+	std::ifstream in{ "2026 1학기 STL.txt" };
+
+	if ( not in ) {
+		std::cout << "파일이 없음" << std::endl;
+		return 20260429;
+	}
+
+	std::cout << "파일 읽는 중";
+	// list는 여분의 메모리가 필요 없다.
+	std::list<YString> c{ std::istream_iterator<YString>(in), {} };
+	std::cout << std::endl;
+
+	observe = true;
+	for ( const YString& ys : c ) {
+		ys.show( );
+	}
+	observe = false;
+}
+
+//이게마지막이어야한다
+
+====================================================================
+저장 시간 - 2026-04-29 13:11:45.2182092
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 29일					(9주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조 -> STACK, DATA
+// vector<T>	- dynamic array -> random access(임의의 위치에 접근 시간이 O(1))
+// list<T>		- 임의의 위치에서 추가/제거 동작이 O(1)
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <list>
+#include <vector>
+#include <fstream>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	// [문제] 파일에 있는 단어를 list에 저장하라
+	// list를 사전 기준으로 오름차순 정렬하라
+	// 화면에 출력하라
+
+	std::ifstream in{ "2026 1학기 STL.txt" };
+
+	if ( not in ) {
+		std::cout << "파일이 없음" << std::endl;
+		return 20260429;
+	}
+
+	std::cout << "파일 읽는 중";
+	// 벡터는 이 동작이 매우 위험하다.
+	std::vector<YString> c{ std::istream_iterator<YString>(in), {} };
+	std::cout << std::endl;
+
+	observe = true;
+	for ( const YString& ys : c ) {
+		ys.show( );
+	}
+	observe = false;
+}
+
+//이게마지막이어야한다
+
+====================================================================
+저장 시간 - 2026-04-29 13:17:18.7053637
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				4월 29일					(9주 2일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// array<T, N>	- 유일하게 크기 고정된 자료구조 -> STACK, DATA
+// vector<T>	- dynamic array -> random access(임의의 위치에 접근 시간이 O(1))
+// list<T>		- 임의의 위치에서 추가/제거 동작이 O(1)
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <list>
+#include <fstream>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	// [문제] 파일에 있는 단어를 list에 저장하라
+	// list를 사전 기준으로 오름차순 정렬하라
+	// 화면에 출력하라
+
+	std::ifstream in{ "2026 1학기 STL.txt" };
+
+	if ( not in ) {
+		std::cout << "파일이 없음" << std::endl;
+		return 20260429;
+	}
+
+	std::cout << "파일 읽는 중";
+	std::list<YString> c{ std::istream_iterator<YString>(in), {} };
+	std::cout << std::endl;
+
+	c.sort([](const YString& a, const YString& b) {
+		return std::lexicographical_compare(a.data( ) , a.data( ) + a.size( ) , b.data( ) , b.data( ) + b.size( ));
+		});
+
+	observe = true;
+	for ( const YString& ys : c ) {
+		std::cout << ys << std::endl;
+	}
+	observe = false;
+}
+
+//이게마지막이어야한다
+

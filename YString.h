@@ -28,7 +28,8 @@ public:
 	bool operator==(const YString& rhs) const;
 
 	size_t getLen( ) const;
-	void show( );		// 2026. 4. 21 special 한 순간이 아닐 때 관찰
+	void show( ) const;		// 2026. 4. 21 special 한 순간이 아닐 때 관찰
+							// 2026. 4. 29 const 멤버로
 
 	// 표준 컨테이너라면 다음 멤버를 제공해야
 	size_t size( ) const;	// 2026. 4. 21
@@ -42,8 +43,9 @@ private:
 	static size_t g_id;		// 생성 시 부여될 고유 번호
 
 	friend std::ostream& operator<<(std::ostream& os , const YString& ys);
+	friend std::istream& operator>>(std::istream& is , YString& ys);
 
 	// 클래스의 special 함수를 관찰하려는 목적
-	void observation(std::string funcType) const;
+	void special(std::string funcType) const;
 };
 

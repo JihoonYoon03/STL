@@ -16,13 +16,13 @@ size_t YString::g_id{};
 YString::YString( )
 	: id{ ++g_id }
 {
-	observation("디폴트");
+	special("디폴트");
 }
 
 // 이 소멸자는 만들 이유가 전혀 없으나 관찰용으로 만듦.
 YString::~YString( )
 {
-	observation("소멸");
+	special("소멸");
 }
 
 // 이건 스페셜 함수가 아니다
@@ -33,7 +33,7 @@ YString::YString(const char* s)
 	p = std::make_unique<char[]>(len);
 	memcpy(p.get( ) , s , len);
 
-	observation("생성(*)");
+	special("생성(*)");
 }
 
 YString::YString(const YString& other)
@@ -43,7 +43,7 @@ YString::YString(const YString& other)
 	p = std::make_unique<char[]>(len);
 	memcpy(p.get( ) , other.p.get( ) , len);
 
-	observation("복사생성");
+	special("복사생성");
 }
 
 YString& YString::operator=(const YString& other)
@@ -62,7 +62,7 @@ YString& YString::operator=(const YString& other)
 	p = std::make_unique<char[]>(len);
 	memcpy(p.get( ) , other.p.get( ) , len);
 
-	observation("복사할당");
+	special("복사할당");
 }
 
 // 2026. 4. 26
@@ -92,7 +92,7 @@ YString::YString(YString&& other) noexcept
 
 	other.len = 0;
 
-	observation("이동생성");
+	special("이동생성");
 }
 
 YString& YString::operator=(YString&& other) noexcept
@@ -107,7 +107,7 @@ YString& YString::operator=(YString&& other) noexcept
 
 	other.len = 0;
 
-	observation("이동할당");
+	special("이동할당");
 }
 
 // 2026. 4. 8
@@ -116,9 +116,9 @@ size_t YString::getLen( ) const
 	return len;
 }
 
-void YString::show( )
+void YString::show( ) const
 {
-	observation("* show *");
+	special("* show *");
 }
 
 // 2026. 4. 21
@@ -140,7 +140,21 @@ std::ostream& operator<<(std::ostream& os , const YString& ys)
 	return os;
 }
 
-void YString::observation(std::string funcType) const
+std::istream& operator>>(std::istream& is , YString& ys)
+{
+	// 입력버퍼에서 데이터를 가져온다
+	std::string s;
+	is >> s;
+
+	ys.len = s.size( );
+	ys.p.reset( );
+	ys.p = std::make_unique<char[]>(ys.len);
+	memcpy(ys.data( ) , s.data( ) , ys.len);
+
+	return is;
+}
+
+void YString::special(std::string funcType) const
 {
 	if ( observe ) {
 		std::string text;

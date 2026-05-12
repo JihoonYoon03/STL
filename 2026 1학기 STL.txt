@@ -6350,3 +6350,205 @@ int main( )
 
 }
 
+====================================================================
+저장 시간 - 2026-05-12 14:02:44.2295636
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 12일					(11주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// Sequence Container
+// array<T, N>	- 유일하게 크기 고정된 자료구조 -> STACK, DATA
+// vector<T>	- 캐시 효율성 (Cache Locality)
+// list<T>		- 임의의 위치에서 추가/제거 동작이 O(1)
+// deque<T>		- vector와 list의 장점을 활용하려는 자료구조
+// 담을 수 있는 원소 개수 : Vector > Deque > List
+// 원소 push_back 효율성: list > Deque > Vector
+// 데이터 크기 효율: Vector > Deque > List
+// MSVC에서 Deque의 한 노드가 가질 수 있는 데이터 크기는 16바이트임. G++은 512, Clang은 4096
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <deque>
+#include <list>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+class Test {
+	char c[ 1024 * 1024 ];
+};
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+
+	{
+		std::vector<Test> v;
+		size_t cnt{};
+		while ( true ) {
+			try {
+				v.emplace_back( );
+			}
+			catch ( ... ) {
+				std::cout << std::endl;
+				std::cout << "벡터 - " << v.size( ) << std::endl;
+				break;
+			}
+			if ( 0 == ( ++cnt % 1000 ) )
+				std::cout << ".";
+		}
+	}
+
+	{
+		std::deque<Test> v;
+		size_t cnt{};
+		while ( true ) {
+			try {
+				v.emplace_back( );
+			}
+			catch ( ... ) {
+				std::cout << std::endl;
+				std::cout << "덱 - " << v.size( ) << std::endl;
+				break;
+			}
+			if ( 0 == ( ++cnt % 1000 ) )
+				std::cout << ".";
+		}
+	}
+
+	{
+		std::list<Test> v;
+		size_t cnt{};
+		while ( true ) {
+			try {
+				v.emplace_back( );
+			}
+			catch ( ... ) {
+				std::cout << std::endl;
+				std::cout << "리스트 - " << v.size( ) << std::endl;
+				break;
+			}
+			if ( 0 == ( ++cnt % 1000 ) )
+				std::cout << ".";
+		}
+	}
+}
+
+====================================================================
+저장 시간 - 2026-05-12 14:38:51.7878090
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 12일					(11주 1일)
+//------------------------------------------------------------------
+// STL Container - Containers are objects that store other objects.
+// Sequence Container
+// array<T, N>	- 유일하게 크기 고정된 자료구조 -> STACK, DATA
+// vector<T>	- 캐시 효율성 (Cache Locality)
+// list<T>		- 임의의 위치에서 추가/제거 동작이 O(1)
+// deque<T>		- vector와 list의 장점을 활용하려는 자료구조
+// forward_list<T> - It is intended that forward_list have zero space or time overhead
+//					 relative to a hand_written C-style singly linked list.
+//					 Features that would conflict with that goal have been omitted.
+//					 직접 손으로 만든 단일 연결 리스트와 비교해서 공간/시간적 오버헤드가 없다
+//					 이 목표에 반하는 피쳐(함수)는 존재하지 않음.
+//------------------------------------------------------------------
+
+#include <iostream>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-05-12 15:11:37.9650389
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 12일					(11주 1일)
+//------------------------------------------------------------------
+// span<T> - light weight object
+// contiguous 메모리를 대표(포장)함 (like std::function)
+// string의 경우 중요한 자료구조 - string_view라는 특별한 타입 존재
+// syntactic sugar 이다.
+// 
+//------------------------------------------------------------------
+ 
+#include <iostream>
+#include <algorithm>
+#include <span>
+#include <ranges>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	YString ys{ "The quick brown fox jumps over the lazy dog" };
+
+	std::sort(ys.data( ) , ys.data( ) + ys.size( ));
+
+	// [문제] 거꾸로 출력하시오
+	std::span<char> s{ ys.data( ), ys.size( ) };
+	
+	for ( char c : s | std::views::reverse ) {
+		std::cout << c << " - ";
+	}
+	std::cout << std::endl;
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-05-12 15:13:24.1585806
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 12일					(11주 1일)
+//------------------------------------------------------------------
+// span<T> - light weight object
+// contiguous 메모리를 대표(포장)함 (like std::function)
+// string의 경우 중요한 자료구조 - string_view라는 특별한 타입 존재
+// syntactic sugar 이다.
+// 
+//------------------------------------------------------------------
+ 
+#include <iostream>
+#include <algorithm>
+#include <span>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	YString ys{ "The quick brown fox jumps over the lazy dog" };
+
+	std::sort(ys.data( ) , ys.data( ) + ys.size( ));
+
+	// [문제] 거꾸로 출력하시오
+	std::span<char> s{ ys.data( ), ys.size( ) };
+	
+	for ( auto i = s.rbegin( ); i != s.rend( ); ++i ) {
+		std::cout << *i << " - ";
+	}
+	std::cout << std::endl;
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+

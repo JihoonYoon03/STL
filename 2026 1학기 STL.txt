@@ -6552,3 +6552,371 @@ int main( )
 	save("main.cpp");		// "메인.cpp"를 저장하자
 }
 
+====================================================================
+저장 시간 - 2026-05-14 12:25:34.6604969
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 12일					(11주 1일)
+//------------------------------------------------------------------
+// span<T> - light weight object
+// contiguous 메모리를 대표(포장)함 (like std::function)
+// string의 경우 중요한 자료구조 - string_view라는 특별한 타입 존재
+// syntactic sugar 이다.
+// 
+//------------------------------------------------------------------
+ 
+#include <iostream>
+#include <algorithm>
+#include <span>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	YString ys{ "sphinx of black quartz judge my vow" };
+
+	std::sort(ys.begin( ) , ys.end( ));
+
+	// range-for는 반복자 인터페이스를 사용해서 컨테이너의 원소를 access 한다.
+	// begin(), end()
+	for ( char c : ys ) {
+		std::cout << c << "-";
+	}
+	std::cout << std::endl;
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-05-14 12:52:03.7140686
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 12일					(11주 1일)
+//------------------------------------------------------------------
+// STL Iterator - Iterators are a generalization of pointers that allow a C++ program
+//				to work with different data structures in a uniform manner.
+//------------------------------------------------------------------
+ 
+#include <iostream>
+#include <iterator>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	// 반복자 객체를 만들어서 어떻게 작동하는지 이해해 본다
+	std::ostream_iterator<char> p{ std::cout };
+	
+	*p++ = 'A';
+	*p++ = 'B';
+	*p++ = 'C';
+	*p++ = '\n';
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-05-14 12:56:02.6396921
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 12일					(11주 1일)
+//------------------------------------------------------------------
+// STL Iterator - Iterators are a generalization of pointers that allow a C++ program
+//				to work with different data structures in a uniform manner.
+//------------------------------------------------------------------
+ 
+#include <iostream>
+#include <iterator>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	// 반복자 객체를 만들어서 어떻게 작동하는지 이해해 본다
+	std::ostream_iterator<char> p{ std::cout };
+	// 이 출력 스트림 반복자는 반복자 어댑터의 일종이다.
+
+	p = 'A';
+	p = 'B';
+	p = 'C';
+	p = '\n';
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-05-14 13:03:27.3199520
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 12일					(11주 1일)
+//------------------------------------------------------------------
+// STL Iterator - Iterators are a generalization of pointers that allow a C++ program
+//				to work with different data structures in a uniform manner.
+//------------------------------------------------------------------
+ 
+#include <iostream>
+#include <iterator>
+#include <vector>
+#include <deque>
+#include <list>
+#include <forward_list>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+void f(std::vector<int>::iterator i)
+{
+	std::cout << typeid( i ).name( ) << std::endl;
+}
+
+int main( )
+{
+	// 반복자의 종류를 알아본다.
+	std::vector<int> v;
+	f(v.begin( ));
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-05-14 13:04:24.7973839
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 12일					(11주 1일)
+//------------------------------------------------------------------
+// STL Iterator - Iterators are a generalization of pointers that allow a C++ program
+//				to work with different data structures in a uniform manner.
+//------------------------------------------------------------------
+ 
+#include <iostream>
+#include <iterator>
+#include <vector>
+#include <deque>
+#include <list>
+#include <forward_list>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+void f(std::vector<int>::iterator i)
+{
+	std::cout << typeid( i ).name( ) << std::endl;
+}
+
+void f(std::deque<int>::iterator i)
+{
+	std::cout << typeid( i ).name( ) << std::endl;
+}
+
+int main( )
+{
+	// 반복자의 종류를 알아본다.
+	std::vector<int> v;
+	std::deque<int> d;
+	
+	f(v.begin( ));
+	f(d.end( ));
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-05-14 13:05:23.0239932
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 12일					(11주 1일)
+//------------------------------------------------------------------
+// STL Iterator - Iterators are a generalization of pointers that allow a C++ program
+//				to work with different data structures in a uniform manner.
+//------------------------------------------------------------------
+ 
+#include <iostream>
+#include <iterator>
+#include <vector>
+#include <deque>
+#include <list>
+#include <forward_list>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+template<class Iter>
+void f(Iter i)
+{
+	std::cout << typeid( i ).name( ) << std::endl;
+}
+
+int main( )
+{
+	// 반복자의 종류를 알아본다.
+	std::vector<int> v;
+	std::deque<int> d;
+	
+	f(v.begin( ));
+	f(d.end( ));
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-05-14 13:09:53.3623597
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 12일					(11주 1일)
+//------------------------------------------------------------------
+// STL Iterator - Iterators are a generalization of pointers that allow a C++ program
+//				to work with different data structures in a uniform manner.
+//------------------------------------------------------------------
+ 
+#include <iostream>
+#include <iterator>
+#include <vector>
+#include <deque>
+#include <list>
+#include <forward_list>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+template<class Iter>
+void f(Iter i)
+{
+	std::cout << typeid( i ).name( ) << std::endl;
+
+	std::cout << typeid(std::iterator_traits<Iter>::iterator_category).name() << std::endl;
+}
+
+int main( )
+{
+	// 반복자의 종류를 알아본다.
+	std::vector<int> v;
+	std::deque<int> d;
+	
+	f(v.begin( ));
+	f(d.end( ));
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-05-14 13:14:43.9703932
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 12일					(11주 1일)
+//------------------------------------------------------------------
+// STL Iterator - Iterators are a generalization of pointers that allow a C++ program
+//				to work with different data structures in a uniform manner.
+//------------------------------------------------------------------
+ 
+#include <iostream>
+#include <iterator>
+#include <vector>
+#include <deque>
+#include <list>
+#include <forward_list>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+template<class Iter>
+void f(Iter i)
+{
+	// 종류를 판단하고 싶다면 반복자로부터 반복자의 특성을 나타내는
+	// 항목 중 다음을 이용하면 돈다
+
+	std::cout << typeid( Iter::iterator_category ).name( ) << std::endl;
+	/*Iter::value_type;
+	Iter::pointer;
+	Iter::reference;
+	Iter::difference_type;*/
+}
+
+int main( )
+{
+	// 반복자의 종류를 알아본다.
+	std::vector<int> v;
+	std::deque<int> d;
+	
+	f(v.begin( ));
+	f(d.end( ));
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+
+====================================================================
+저장 시간 - 2026-05-14 13:17:01.3405429
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 12일					(11주 1일)
+//------------------------------------------------------------------
+// STL Iterator - Iterators are a generalization of pointers that allow a C++ program
+//				to work with different data structures in a uniform manner.
+//------------------------------------------------------------------
+ 
+#include <iostream>
+#include <iterator>
+#include <vector>
+#include <deque>
+#include <list>
+#include <forward_list>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+template<class Iter>
+void f(Iter i)
+{
+	// 종류를 판단하고 싶다면 반복자로부터 반복자의 특성을 나타내는
+	// 항목 중 다음을 이용하면 돈다
+
+	std::cout << typeid( Iter::iterator_category ).name( ) << std::endl;
+	/*Iter::value_type;
+	Iter::pointer;
+	Iter::reference;
+	Iter::difference_type;*/
+}
+
+int main( )
+{
+	// 반복자의 종류를 알아본다.
+	f(std::istream_iterator<char>{std::cin}); // 글자 입력해야 넘어감
+	f(std::ostream_iterator<char>{std::cout});
+
+	f(std::forward_list<int>::iterator{});
+	f(std::list<YString>{}.begin());
+	f(std::deque<char>{}.rbegin());
+	f(std::vector<int>::const_iterator());
+
+	save("main.cpp");		// "메인.cpp"를 저장하자
+}
+

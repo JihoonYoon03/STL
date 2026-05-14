@@ -133,6 +133,16 @@ char* YString::data( ) const
 	return p.get( );
 }
 
+char* YString::begin( ) const
+{
+	return p.get( );
+}
+
+char* YString::end( ) const
+{
+	return p.get( ) + len;
+}
+
 std::ostream& operator<<(std::ostream& os , const YString& ys)
 {
 	for ( int i = 0; i < ys.len; ++i )

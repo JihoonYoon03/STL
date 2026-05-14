@@ -27,6 +27,9 @@ public:
 	// 2026. 4. 28
 	bool operator==(const YString& rhs) const;
 
+	// 클래스의 special 함수를 관찰하려는 목적
+	void special(std::string funcType) const;
+
 	size_t getLen( ) const;
 	void show( ) const;		// 2026. 4. 21 special 한 순간이 아닐 때 관찰
 							// 2026. 4. 29 const 멤버로
@@ -34,6 +37,11 @@ public:
 	// 표준 컨테이너라면 다음 멤버를 제공해야
 	size_t size( ) const;	// 2026. 4. 21
 	char* data( ) const;	// 2026. 4. 21
+
+	// 2026. 5. 13
+	// 표준 반복자 인터페이스를 제공해야 STL 컨테이너이다
+	char* begin( ) const;
+	char* end( ) const;
 
 private:
 	size_t id{};
@@ -44,8 +52,5 @@ private:
 
 	friend std::ostream& operator<<(std::ostream& os , const YString& ys);
 	friend std::istream& operator>>(std::istream& is , YString& ys);
-
-	// 클래스의 special 함수를 관찰하려는 목적
-	void special(std::string funcType) const;
 };
 

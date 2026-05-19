@@ -9,6 +9,27 @@
 
 #include <memory>
 
+// 2026. 5. 19
+class YString_Reverse_Iterator {
+public:
+	YString_Reverse_Iterator( ) = default;
+	YString_Reverse_Iterator(char* p) : p{ p } { }
+
+	void operator++( ) {
+		--p;
+	}
+	
+	char operator*( ) const {
+		return *(p - 1);
+	}
+
+	// 우주선 연산자를 코딩하면 관계연산자 6개가 자동생성된다.
+	auto operator<=>(const YString_Reverse_Iterator& rhs) const = default;
+
+private:
+	char* p;
+};
+
 class YString {
 public:
 	YString( );
@@ -42,6 +63,10 @@ public:
 	// 표준 반복자 인터페이스를 제공해야 STL 컨테이너이다
 	char* begin( ) const;
 	char* end( ) const;
+
+	// 2026. 5. 19 역방향 반복자
+	YString_Reverse_Iterator rbegin( ) const;
+	YString_Reverse_Iterator rend( ) const;
 
 private:
 	size_t id{};

@@ -143,6 +143,17 @@ char* YString::end( ) const
 	return p.get( ) + len;
 }
 
+// 2026. 05. 19 역방향반복자
+YString_Reverse_Iterator YString::rbegin( ) const
+{
+	return p.get( ) + len;
+}
+
+YString_Reverse_Iterator YString::rend( ) const
+{
+	return p.get();
+}
+
 std::ostream& operator<<(std::ostream& os , const YString& ys)
 {
 	for ( int i = 0; i < ys.len; ++i )

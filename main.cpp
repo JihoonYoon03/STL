@@ -3,43 +3,29 @@
 //------------------------------------------------------------------
 // STL Iterator - Iterators are a generalization of pointers that allow a C++ program
 //				to work with different data structures in a uniform manner.
+// 
+// pointer의 up_casting = iterator, generalization
+// iterator의 down_casting = output / input<-forward<-bidirectional<-random_access iterator, specialization
+// iterator는 category 존재 (input, output, contiguous(C++17)). 효율성을 위해 나누었다.
+// contiguous는 캐시 효율성이 뛰어나다. memcpy같은 데이터 카피도 매우 효율적이다. SIMD 최적화.
 //------------------------------------------------------------------
  
 #include <iostream>
-#include <iterator>
-#include <vector>
-#include <deque>
-#include <list>
-#include <forward_list>
 
 #include "save.h"
 #include "YString.h"
 
 extern bool observe;
 
-template<class Iter>
-void f(Iter i)
-{
-	// 종류를 판단하고 싶다면 반복자로부터 반복자의 특성을 나타내는
-	// 항목 중 다음을 이용하면 돈다
-
-	std::cout << typeid( Iter::iterator_category ).name( ) << std::endl;
-	/*Iter::value_type;
-	Iter::pointer;
-	Iter::reference;
-	Iter::difference_type;*/
-}
-
 int main( )
 {
-	// 반복자의 종류를 알아본다.
-	f(std::istream_iterator<char>{std::cin}); // 글자 입력해야 넘어감
-	f(std::ostream_iterator<char>{std::cout});
+	save("main.cpp");
 
-	f(std::forward_list<int>::iterator{});
-	f(std::list<YString>{}.begin());
-	f(std::deque<char>{}.rbegin());
-	f(std::vector<int>::const_iterator());
+	YString ys{ "jackdaws love my big sphinx of quartz" };
 
-	save("main.cpp");		// "메인.cpp"를 저장하자
+	// 거꾸로 출력 - uniform manner
+	for ( auto i = ys.rbegin( ); i != ys.rend( ); ++i ) {
+		std::cout << *i << ' ';
+	}
+	std::cout << std::endl;
 }

@@ -1,31 +1,42 @@
 //------------------------------------------------------------------
-// 2026 1학기 STL				5월 12일					(11주 1일)
+// 2026 1학기 STL				5월 20일					(12주 1일)
 //------------------------------------------------------------------
-// STL Iterator - Iterators are a generalization of pointers that allow a C++ program
-//				to work with different data structures in a uniform manner.
-// 
-// pointer의 up_casting = iterator, generalization
-// iterator의 down_casting = output / input<-forward<-bidirectional<-random_access iterator, specialization
-// iterator는 category 존재 (input, output, contiguous(C++17)). 효율성을 위해 나누었다.
-// contiguous는 캐시 효율성이 뛰어나다. memcpy같은 데이터 카피도 매우 효율적이다. SIMD 최적화.
+// STL Algorithm
+// 1 - 원소를 수정하지 않는 알고리즘
+// 2 - 원소를 수정하는 알고리즘
+// 3 - 정렬 관련 알고리즘
 //------------------------------------------------------------------
- 
+
 #include <iostream>
+#include <algorithm>
 
 #include "save.h"
 #include "YString.h"
 
 extern bool observe;
 
+template<class It, class Val>
+It my_find(It beg, It end, Val val)
+{
+	while ( beg != end ) {
+		if ( *beg == val ) {
+			return beg;
+		}
+		++beg;
+	}
+	return end;
+}
+
 int main( )
 {
 	save("main.cpp");
 
-	YString ys{ "jackdaws love my big sphinx of quartz" };
+	YString ys{ "93147833366635670204172374813204103341032080732604153" };
 
-	// 거꾸로 출력 - uniform manner
-	for ( auto i = ys.rbegin( ); i != ys.rend( ); ++i ) {
-		std::cout << *i << ' ';
-	}
-	std::cout << std::endl;
+	// [문제] ys에서 처음 나온 짝수를 찾으시오
+	YString::iterator i = std::find_if(ys.begin( ) , ys.end( ) , [](char c) {
+		return not ( c & 1 );
+		});
+
+	std::cout << *i << std::endl;
 }

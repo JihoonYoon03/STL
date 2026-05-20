@@ -73,13 +73,6 @@ bool YString::operator==(const YString& rhs) const
 		return false;
 
 	return std::equal(p.get( ) , p.get( ) + len , rhs.p.get( ));
-
-	/*for ( int i = 0; i < len; ++i ) {
-		if ( p[ i ] != rhs.p[ i ] )
-			return false;
-	}
-
-	return true;*/
 }
 
 // 2026.4.8 
@@ -133,17 +126,20 @@ char* YString::data( ) const
 	return p.get( );
 }
 
-char* YString::begin( ) const
+// 2026. 5. 13
+// 표준 반복자 인터페이스를 제공해야 STL 컨테이너이다.
+// 2026. 5. 20 return을 반복자 class로
+YString_Iterator YString::begin( ) const
 {
 	return p.get( );
 }
 
-char* YString::end( ) const
+YString_Iterator YString::end( ) const
 {
 	return p.get( ) + len;
 }
 
-// 2026. 05. 19 역방향반복자
+// 2026. 5. 19 역방향반복자
 YString_Reverse_Iterator YString::rbegin( ) const
 {
 	return p.get( ) + len;

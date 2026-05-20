@@ -1,9 +1,11 @@
 //------------------------------------------------------------------
 // STL의 내부를 들여다 보려고 만든 YString
 // 
-// 2026.4.8 시작
-// 복사생성자 - 2026.4.8
-// 이동생성자 - 2026.4.8
+// 2026. 4. 8 시작
+// 복사생성자			 - 2026. 4. 8
+// 이동생성자			 - 2026. 4. 8
+// 역방향 반복자 클래스	 - 2026. 5. 19
+// 반복자 클래스			 - 2026. 5. 20
 //------------------------------------------------------------------
 #pragma once
 
@@ -11,6 +13,14 @@
 
 // 2026. 5. 19
 class YString_Reverse_Iterator {
+public:
+	// 표준반복자가 되려면 다음 5가지 타입을 제공해야 한다.
+	using iterator_category = std::random_access_iterator_tag;	// 무슨 반복자 타입인가
+	using difference_type = std::ptrdiff_t;		// 반복자끼리 빼면, 어떤 자료형인가
+	using value_type = char;					// 값의 타입
+	using pointer = char*;						// 포인터로 바꿔서 표현하면 어떻게 되는가
+	using reference = char&;					// 레퍼런스로 표현하면 어떻게 되는가 
+
 public:
 	YString_Reverse_Iterator( ) = default;
 	YString_Reverse_Iterator(char* p) : p{ p } { }
@@ -30,7 +40,63 @@ private:
 	char* p;
 };
 
+// 2026. 5. 20
+class YString_Iterator {
+public:
+	// 표준반복자가 되려면 다음 5가지 타입을 제공해야 한다.
+	using iterator_category = std::random_access_iterator_tag;	// 무슨 반복자 타입인가
+	using difference_type = std::ptrdiff_t;	// 반복자끼리 빼면, 어떤 자료형인가
+	using value_type = char;				// 값의 타입
+	using pointer = char*;					// 포인터로 바꿔서 표현하면 어떻게 되는가
+	using reference = char&;				// 레퍼런스로 표현하면 어떻게 되는가 
+
+public:
+	YString_Iterator( ) = default;
+	YString_Iterator(char* p) : p{ p } {}
+
+	auto operator<=>(const YString_Iterator& rhs) const = default;
+
+	// 2026. 5. 20 std::sort가 실행되려면 최소한 이 연산자들이 필요함
+	difference_type operator-(const YString_Iterator& rhs) const {
+		return p - rhs.p;
+	}
+
+	YString_Iterator& operator++( ) {
+		++p;
+		return *this;
+	}
+
+	char& operator*( ) const {
+		return *p;
+	}
+
+	YString_Iterator& operator--( ) {
+		--p;
+		return *this;
+	}
+
+	YString_Iterator operator+(const difference_type n) const {
+		return p + n;
+	}
+
+	YString_Iterator operator-(const difference_type n) const {
+		return p - n;
+	}
+
+private:
+	char* p;
+};
+
+
+// ------------------------------------------------------------------------
+// STL 컨테이너가 되도록 수정 중
+// ------------------------------------------------------------------------
 class YString {
+public:
+	// 표준 컨테이너가 되려면 다음 타입을 제공해야 한다.
+	using iterator = YString_Iterator;
+	// re
+
 public:
 	YString( );
 	~YString( );
@@ -61,8 +127,10 @@ public:
 
 	// 2026. 5. 13
 	// 표준 반복자 인터페이스를 제공해야 STL 컨테이너이다
-	char* begin( ) const;
-	char* end( ) const;
+	// 2026. 5. 20
+	// 반복자는 클래스로 코딩한다.
+	YString_Iterator begin( ) const;
+	YString_Iterator end( ) const;
 
 	// 2026. 5. 19 역방향 반복자
 	YString_Reverse_Iterator rbegin( ) const;

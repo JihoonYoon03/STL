@@ -6925,7 +6925,7 @@ int main( )
 ====================================================================
 
 //------------------------------------------------------------------
-// 2026 1학기 STL				5월 12일					(11주 1일)
+// 2026 1학기 STL				5월 19일					(11주 2일)
 //------------------------------------------------------------------
 // STL Iterator - Iterators are a generalization of pointers that allow a C++ program
 //				to work with different data structures in a uniform manner.
@@ -6962,7 +6962,7 @@ int main( )
 ====================================================================
 
 //------------------------------------------------------------------
-// 2026 1학기 STL				5월 12일					(11주 1일)
+// 2026 1학기 STL				5월 19일					(11주 2일)
 //------------------------------------------------------------------
 // STL Iterator - Iterators are a generalization of pointers that allow a C++ program
 //				to work with different data structures in a uniform manner.
@@ -7000,7 +7000,7 @@ int main( )
 ====================================================================
 
 //------------------------------------------------------------------
-// 2026 1학기 STL				5월 12일					(11주 1일)
+// 2026 1학기 STL				5월 19일					(11주 2일)
 //------------------------------------------------------------------
 // STL Iterator - Iterators are a generalization of pointers that allow a C++ program
 //				to work with different data structures in a uniform manner.
@@ -7049,7 +7049,7 @@ int main( )
 ====================================================================
 
 //------------------------------------------------------------------
-// 2026 1학기 STL				5월 12일					(11주 1일)
+// 2026 1학기 STL				5월 19일					(11주 2일)
 //------------------------------------------------------------------
 // STL Iterator - Iterators are a generalization of pointers that allow a C++ program
 //				to work with different data structures in a uniform manner.
@@ -7095,7 +7095,7 @@ int main( )
 ====================================================================
 
 //------------------------------------------------------------------
-// 2026 1학기 STL				5월 12일					(11주 1일)
+// 2026 1학기 STL				5월 19일					(11주 2일)
 //------------------------------------------------------------------
 // STL Iterator - Iterators are a generalization of pointers that allow a C++ program
 //				to work with different data structures in a uniform manner.
@@ -7147,7 +7147,7 @@ int main( )
 ====================================================================
 
 //------------------------------------------------------------------
-// 2026 1학기 STL				5월 12일					(11주 1일)
+// 2026 1학기 STL				5월 19일					(11주 2일)
 //------------------------------------------------------------------
 // STL Iterator - Iterators are a generalization of pointers that allow a C++ program
 //				to work with different data structures in a uniform manner.
@@ -7221,7 +7221,7 @@ int main( )
 ====================================================================
 
 //------------------------------------------------------------------
-// 2026 1학기 STL				5월 12일					(11주 1일)
+// 2026 1학기 STL				5월 19일					(11주 2일)
 //------------------------------------------------------------------
 // STL Iterator - Iterators are a generalization of pointers that allow a C++ program
 //				to work with different data structures in a uniform manner.
@@ -7299,7 +7299,7 @@ int main( )
 ====================================================================
 
 //------------------------------------------------------------------
-// 2026 1학기 STL				5월 12일					(11주 1일)
+// 2026 1학기 STL				5월 19일					(11주 2일)
 //------------------------------------------------------------------
 // STL Iterator - Iterators are a generalization of pointers that allow a C++ program
 //				to work with different data structures in a uniform manner.
@@ -7366,7 +7366,7 @@ int main( )
 ====================================================================
 
 //------------------------------------------------------------------
-// 2026 1학기 STL				5월 12일					(11주 1일)
+// 2026 1학기 STL				5월 19일					(11주 2일)
 //------------------------------------------------------------------
 // STL Iterator - Iterators are a generalization of pointers that allow a C++ program
 //				to work with different data structures in a uniform manner.
@@ -7414,7 +7414,7 @@ int main( )
 ====================================================================
 
 //------------------------------------------------------------------
-// 2026 1학기 STL				5월 12일					(11주 1일)
+// 2026 1학기 STL				5월 19일					(11주 2일)
 //------------------------------------------------------------------
 // STL Iterator - Iterators are a generalization of pointers that allow a C++ program
 //				to work with different data structures in a uniform manner.
@@ -7463,7 +7463,7 @@ int main( )
 ====================================================================
 
 //------------------------------------------------------------------
-// 2026 1학기 STL				5월 12일					(11주 1일)
+// 2026 1학기 STL				5월 19일					(11주 2일)
 //------------------------------------------------------------------
 // STL Iterator - Iterators are a generalization of pointers that allow a C++ program
 //				to work with different data structures in a uniform manner.
@@ -7500,7 +7500,7 @@ int main( )
 ====================================================================
 
 //------------------------------------------------------------------
-// 2026 1학기 STL				5월 12일					(11주 1일)
+// 2026 1학기 STL				5월 19일					(11주 2일)
 //------------------------------------------------------------------
 // STL Iterator - Iterators are a generalization of pointers that allow a C++ program
 //				to work with different data structures in a uniform manner.
@@ -7529,5 +7529,278 @@ int main( )
 		std::cout << *i << ' ';
 	}
 	std::cout << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-05-20 11:49:21.7439051
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 20일					(12주 1일)
+//------------------------------------------------------------------
+// STL Iterator - Iterators are a generalization of pointers that allow a C++ program
+//				to work with different data structures in a uniform manner.
+// 
+// pointer의 up_casting = iterator, generalization
+// iterator의 down_casting = output / input<-forward<-bidirectional<-random_access iterator, specialization
+// iterator는 category 존재 (input, output, contiguous(C++17)). 효율성을 위해 나누었다.
+// contiguous는 캐시 효율성이 뛰어나다. memcpy같은 데이터 카피도 매우 효율적이다. SIMD 최적화.
+//------------------------------------------------------------------
+ 
+#include <iostream>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+template <class 반복자>
+void f(반복자 i)
+{
+	std::cout << typeid( std::iterator_traits<반복자>::iterator_category ).name( ) << std::endl;
+}
+
+int main( )
+{
+	save("main.cpp");
+
+	YString ys{ "jackdaws love my big sphinx of quartz" };
+
+	f(ys.rbegin( ));
+
+	std::cout << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-05-20 12:41:25.6860430
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 20일					(12주 1일)
+//------------------------------------------------------------------
+// STL Iterator - Iterators are a generalization of pointers that allow a C++ program
+//				to work with different data structures in a uniform manner.
+// 
+// pointer의 up_casting = iterator, generalization
+// iterator의 down_casting = output / input<-forward<-bidirectional<-random_access iterator, specialization
+// iterator는 category 존재 (input, output, contiguous(C++17)). 효율성을 위해 나누었다.
+// contiguous는 캐시 효율성이 뛰어나다. memcpy같은 데이터 카피도 매우 효율적이다. SIMD 최적화.
+//------------------------------------------------------------------
+ 
+#include <iostream>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	YString ys{ "jackdaws love my big sphinx of quartz" };
+
+	// [문제] ys를 오름차순 정렬하라. 다음 코드가 변경없이 실행되도록 하라.
+	std::sort(ys.begin( ) , ys.end( ));
+
+	std::cout << ys << std::endl;
+	std::cout << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-05-20 12:59:18.6216974
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 20일					(12주 1일)
+//------------------------------------------------------------------
+// STL Algorithm
+// 1 - 원소를 수정하지 않는 알고리즘
+// 2 - 원소를 수정하는 알고리즘
+// 3 - 정렬 관련 알고리즘
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	YString ys{ "jackdaws love my big sphinx of quartz" };
+
+	// [문제] 글자를 입력받아 ys에 있는 글자인지 판단하자
+	while (true) {
+		std::cout << "찾을 문자는? ";
+		char c;
+		std::cin >> c;
+		YString::iterator p = std::find(ys.begin( ) , ys.end( ) , c);
+		if ( p != ys.end( ) ) {
+			std::cout << std::distance(ys.begin() , p) + 1 << "번째 문자입니다." << std::endl;
+		}
+		else {
+			std::cout << "없는 문자입니다." << std::endl;
+		}
+	}
+}
+
+====================================================================
+저장 시간 - 2026-05-20 13:04:18.4588826
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 20일					(12주 1일)
+//------------------------------------------------------------------
+// STL Algorithm
+// 1 - 원소를 수정하지 않는 알고리즘
+// 2 - 원소를 수정하는 알고리즘
+// 3 - 정렬 관련 알고리즘
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+template<class It, class Val>
+It my_find(const It& begin, const It& end, Val val)
+{
+	for ( It i = begin; i != end; ++i ) {
+		if ( *i == val )
+			return i;
+	}
+
+	return end;
+}
+
+int main( )
+{
+	save("main.cpp");
+
+	YString ys{ "jackdaws love my big sphinx of quartz" };
+
+	// [문제] 글자를 입력받아 ys에 있는 글자인지 판단하자
+	while (true) {
+		std::cout << "찾을 문자는? ";
+		char c;
+		std::cin >> c;
+		YString::iterator p = my_find(ys.begin( ) , ys.end( ) , c);
+		if ( p != ys.end( ) ) {
+			std::cout << std::distance(ys.begin() , p) + 1 << "번째 문자입니다." << std::endl;
+		}
+		else {
+			std::cout << "없는 문자입니다." << std::endl;
+		}
+	}
+}
+
+====================================================================
+저장 시간 - 2026-05-20 13:10:19.2919983
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 20일					(12주 1일)
+//------------------------------------------------------------------
+// STL Algorithm
+// 1 - 원소를 수정하지 않는 알고리즘
+// 2 - 원소를 수정하는 알고리즘
+// 3 - 정렬 관련 알고리즘
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+template<class It, class Val>
+It my_find(It beg, It end, Val val)
+{
+	while ( beg != end ) {
+		if ( *beg == val ) {
+			return beg;
+		}
+		++beg;
+	}
+	return end;
+}
+
+int main( )
+{
+	save("main.cpp");
+
+	YString ys{ "jackdaws love my big sphinx of quartz" };
+
+	// [문제] 글자를 입력받아 ys에 있는 글자인지 판단하자
+	while (true) {
+		std::cout << "찾을 문자는? ";
+		char c;
+		std::cin >> c;
+		YString::iterator p = my_find(ys.begin( ) , ys.end( ) , c);
+		if ( p != ys.end( ) ) {
+			std::cout << std::distance(ys.begin() , p) + 1 << "번째 문자입니다." << std::endl;
+		}
+		else {
+			std::cout << "없는 문자입니다." << std::endl;
+		}
+	}
+}
+
+====================================================================
+저장 시간 - 2026-05-20 13:19:02.7207280
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 20일					(12주 1일)
+//------------------------------------------------------------------
+// STL Algorithm
+// 1 - 원소를 수정하지 않는 알고리즘
+// 2 - 원소를 수정하는 알고리즘
+// 3 - 정렬 관련 알고리즘
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+template<class It, class Val>
+It my_find(It beg, It end, Val val)
+{
+	while ( beg != end ) {
+		if ( *beg == val ) {
+			return beg;
+		}
+		++beg;
+	}
+	return end;
+}
+
+int main( )
+{
+	save("main.cpp");
+
+	YString ys{ "93147833366635670204172374813204103341032080732604153" };
+
+	// [문제] ys에서 처음 나온 짝수를 찾으시오
+	YString::iterator i = std::find_if(ys.begin( ) , ys.end( ) , [](char c) {
+		return not ( c & 1 );
+		});
+
+	std::cout << *i << std::endl;
 }
 

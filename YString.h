@@ -95,7 +95,8 @@ class YString {
 public:
 	// 표준 컨테이너가 되려면 다음 타입을 제공해야 한다.
 	using iterator = YString_Iterator;
-	// re
+	// 2026. 5. 26
+	using value_type = char;
 
 public:
 	YString( );
@@ -113,6 +114,9 @@ public:
 
 	// 2026. 4. 28
 	bool operator==(const YString& rhs) const;
+	// 2026. 5. 26
+	// set의 원소가 되려면 < 를 정의해야 한다.
+	bool operator<(const YString& rhs) const;
 
 	// 클래스의 special 함수를 관찰하려는 목적
 	void special(std::string funcType) const;

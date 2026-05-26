@@ -75,6 +75,11 @@ bool YString::operator==(const YString& rhs) const
 	return std::equal(p.get( ) , p.get( ) + len , rhs.p.get( ));
 }
 
+bool YString::operator<(const YString& rhs) const
+{
+	return len < rhs.len;
+}
+
 // 2026.4.8 
 // 2026.04.14 트랜잭션 안전성 보장 필요(원본 데이터 안전성 보장)
 YString::YString(YString&& other) noexcept

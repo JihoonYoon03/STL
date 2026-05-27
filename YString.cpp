@@ -75,9 +75,14 @@ bool YString::operator==(const YString& rhs) const
 	return std::equal(p.get( ) , p.get( ) + len , rhs.p.get( ));
 }
 
+// 2026. 5. 26
+// set의 원소가 되려면 <를 정의해야 한다
+// 길이 기준 비교
+// 2026. 5. 27
+// 사전식 비교로 수정
 bool YString::operator<(const YString& rhs) const
 {
-	return len < rhs.len;
+	return std::lexicographical_compare(begin( ) , end( ) , rhs.begin( ) , rhs.end( ));
 }
 
 // 2026.4.8 

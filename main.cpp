@@ -1,5 +1,5 @@
 //------------------------------------------------------------------
-// 2026 1학기 STL				5월 26일					(12주 2일)
+// 2026 1학기 STL				5월 26일					(13주 1일)
 // 기말시험 6/17
 //------------------------------------------------------------------
 // STL Associative Container
@@ -9,51 +9,52 @@
 //------------------------------------------------------------------
 
 #include <iostream>
-#include <set>
+#include <map>
 #include <fstream>
+#include <algorithm>
 
 #include "save.h"
 #include "YString.h"
 
 extern bool observe;
 
-template<>
-struct std::less<YString> {
-	bool operator()(const YString& a , const YString& b) const {
-		return std::lexicographical_compare(a.begin( ) , a.end( ) , b.begin( ) , b.end( ));
-	}
-};
-
 int main( )
 {
-	// "main.cpp"에 있는 단어를 set<YString>에 저장하라.
-	// 기준은 사전식 오름차순으로.
+	//save("main.cpp");
 
-	std::fstream in{ "main.cpp" };
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
 	if ( not in ) {
-		std::cout << "파일을 살펴보시오" << std::endl;
-		return 20260526;
+		std::cout << "파일 오류";
+		return 20260527;
 	}
 
-	std::set<YString, std::less<YString>> s{ std::istream_iterator<YString>{in}, {} };
+	// [문제] 파일에 있는 단어 개수를 다음과 같이 출력하라
+	// a		- 
+	// aa		-
+	// ...
+	// zigzag	-
 
-	for ( const YString& ys : s ) {
-		std::cout << ys << std::endl;
+	std::map<YString , size_t> ss;
+	YString ys;
+
+	while ( in >> ys ) {
+		++ss[ ys ];
 	}
 
-	save("main.cpp");
+	for ( const auto& [word , cnt] : ss ) {
+		std::cout << word << " - " << cnt << std::endl;
+	}
 
-	// [문제] 찾을 단어가 set에 있는지 알려줘라.
+	std::cout << "단어 개수 - " << ss.size( ) << std::endl << std::endl;
 
-	while ( true ) {
-		std::cout << "찾을 단어는 - " << std::endl;
-		YString ys;
-		std::cin >> ys;
+	// 많이 나온 단어 순서대로 출력하라
+	std::map<size_t , YString , std::greater<size_t>> sys;
 
-		// 있다면 몇 번째인가
-		// 없다면 없는 단어다.
+	for ( const auto& [word , cnt] : ss ) {
+		sys.insert(std::make_pair(cnt , word));
+	}
 
-		auto p = std::find(s.begin( ) , s.end( ) , ys);
-
+	for ( const auto& [cnt , word] : sys ) {
+		std::cout << cnt << " - " << word << std::endl;
 	}
 }

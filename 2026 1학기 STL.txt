@@ -8154,7 +8154,11 @@ int main( )
 		std::cout << "파일을 살펴보시오" << std::endl;
 		return 20260526;
 	}
-
+	
+	// set의 정렬기준
+	// default는 less<T>
+	// 다른 callable로 대체 가능
+	// operator<
 	std::set<YString, std::less<YString>> s{ std::istream_iterator<YString>{in}, {} };
 
 	for ( const YString& ys : s ) {
@@ -8162,5 +8166,911 @@ int main( )
 	}
 
 	save("main.cpp");
+}
+
+====================================================================
+저장 시간 - 2026-05-27 11:33:21.1366903
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 26일					(13주 1일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <set>
+#include <fstream>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+template<>
+struct std::less<YString> {
+	bool operator()(const YString& a , const YString& b) const {
+		return std::lexicographical_compare(a.begin( ) , a.end( ) , b.begin( ) , b.end( ));
+	}
+};
+
+int main( )
+{
+	// "main.cpp"에 있는 단어를 set<YString>에 저장하라.
+	// 기준은 사전식 오름차순으로.
+
+	std::fstream in{ "main.cpp" };
+	if ( not in ) {
+		std::cout << "파일을 살펴보시오" << std::endl;
+		return 20260526;
+	}
+
+	// set의 정렬기준
+	// default는 less<T>
+	// 다른 callable로 대체 가능
+	// operator<
+
+	class Dog {
+	public:
+		bool operator()(const YString& a, const YString& b) const {
+			return std::lexicographical_compare(a.begin( ) , a.end( ) , b.begin( ) , b.end( ));
+		};
+	};
+
+	std::set<YString, Dog> s{ std::istream_iterator<YString>{in}, {} };
+
+	for ( const YString& ys : s ) {
+		std::cout << ys << std::endl;
+	}
+
+	save("main.cpp");
+}
+
+====================================================================
+저장 시간 - 2026-05-27 11:36:14.1341329
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 26일					(13주 1일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <set>
+#include <fstream>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+template<>
+struct std::less<YString> {
+	bool operator()(const YString& a , const YString& b) const {
+		return std::lexicographical_compare(a.begin( ) , a.end( ) , b.begin( ) , b.end( ));
+	}
+};
+
+int main( )
+{
+	// "main.cpp"에 있는 단어를 set<YString>에 저장하라.
+	// 기준은 사전식 오름차순으로.
+
+	std::fstream in{ "main.cpp" };
+	if ( not in ) {
+		std::cout << "파일을 살펴보시오" << std::endl;
+		return 20260526;
+	}
+
+	// set의 정렬기준
+	// default는 less<T>
+	// 다른 callable로 대체 가능
+	// operator<
+
+	class Dog {
+	public:
+		bool operator()(const YString& a, const YString& b) const {
+			return std::lexicographical_compare(a.begin( ) , a.end( ) , b.begin( ) , b.end( ));
+		};
+	};
+
+	std::set<YString, Dog> s{ std::istream_iterator<YString>{in}, {} };
+
+	for ( const YString& ys : s ) {
+		std::cout << ys << std::endl;
+	}
+
+	save("main.cpp");
+
+	// [문제] 찾을 단어가 set에 있는지 알려줘라.
+
+	while ( true ) {
+		std::cout << "찾을 단어는 - ";
+		YString ys;
+		std::cin >> ys;
+
+		// 있다면 몇 번째인가
+		// 없다면 없는 단어다.
+		// 아래는 오답 예시임. 전역 find 함수 사용하기 때문
+
+		auto p = std::find(s.begin( ) , s.end( ) , ys);
+		if ( p != s.end( ) ) {
+			std::cout << "해당 단어는 " << std::distance(s.begin( ) , p) + 1 << "번째에 있습니다" << std::endl;
+		}
+		else {
+			std::cout << "해당 단어는 없습니다." << std::endl;
+		}
+	}
+}
+
+====================================================================
+저장 시간 - 2026-05-27 11:39:40.9048488
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 26일					(13주 1일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <set>
+#include <fstream>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+template<>
+struct std::less<YString> {
+	bool operator()(const YString& a , const YString& b) const {
+		return std::lexicographical_compare(a.begin( ) , a.end( ) , b.begin( ) , b.end( ));
+	}
+};
+
+int main( )
+{
+	// "main.cpp"에 있는 단어를 set<YString>에 저장하라.
+	// 기준은 사전식 오름차순으로.
+
+	std::fstream in{ "main.cpp" };
+	if ( not in ) {
+		std::cout << "파일을 살펴보시오" << std::endl;
+		return 20260526;
+	}
+
+	// set의 정렬기준
+	// default는 less<T>
+	// 다른 callable로 대체 가능
+	// operator<
+
+	class Dog {
+	public:
+		bool operator()(const YString& a, const YString& b) const {
+			return std::lexicographical_compare(a.begin( ) , a.end( ) , b.begin( ) , b.end( ));
+		};
+	};
+
+	std::set<YString, Dog> s{ std::istream_iterator<YString>{in}, {} };
+
+	for ( const YString& ys : s ) {
+		std::cout << ys << std::endl;
+	}
+
+	save("main.cpp");
+
+	// [문제] 찾을 단어가 set에 있는지 알려줘라. - Lookup
+
+	while ( true ) {
+		std::cout << "찾을 단어는 - ";
+		YString ys;
+		std::cin >> ys;
+
+		// 있다면 몇 번째인가
+		// 없다면 없는 단어다.
+		
+		// 아래 코드가 정답이다. set은 red-black tree로 구성되어 있고, 탐색 속도를 logN으로 유지한다.
+		auto p = s.find(ys);
+		if ( p != s.end( ) ) {
+			std::cout << "해당 단어는 " << std::distance(s.begin( ) , p) + 1 << "번째에 있습니다" << std::endl;
+		}
+		else {
+			std::cout << "해당 단어는 없습니다." << std::endl;
+		}
+	}
+}
+
+====================================================================
+저장 시간 - 2026-05-27 11:44:38.0673252
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 26일					(13주 1일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <set>
+#include <fstream>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+template<>
+struct std::less<YString> {
+	bool operator()(const YString& a , const YString& b) const {
+		return std::lexicographical_compare(a.begin( ) , a.end( ) , b.begin( ) , b.end( ));
+	}
+};
+
+int main( )
+{
+	// "main.cpp"에 있는 단어를 set<YString>에 저장하라.
+	// 기준은 사전식 오름차순으로.
+
+	std::fstream in{ "main.cpp" };
+	if ( not in ) {
+		std::cout << "파일을 살펴보시오" << std::endl;
+		return 20260526;
+	}
+
+	// set의 정렬기준
+	// default는 less<T>
+	// 다른 callable로 대체 가능
+	// operator<
+
+	class Dog {
+	public:
+		bool operator()(const YString& a, const YString& b) const {
+			return std::lexicographical_compare(a.begin( ) , a.end( ) , b.begin( ) , b.end( ));
+		};
+	};
+
+	std::set<YString, Dog> s{ std::istream_iterator<YString>{in}, {} };
+
+	for ( const YString& ys : s ) {
+		std::cout << ys << std::endl;
+	}
+
+	save("main.cpp");
+
+	// [문제] 찾을 단어가 set에 있는지 없는지 알려줘라.
+
+	while ( true ) {
+		std::cout << "찾을 단어는 - ";
+		YString ys;
+		std::cin >> ys;
+
+		// 있다면 있다고 출력
+		// 없다면 set에 새로 추가
+		
+		if ( s.contains(ys) ) {
+			std::cout << "해당 단어가 있습니다." << std::endl;;
+		}
+		else {
+			std::cout << "해당 단어는 없습니다. 추가합니다." << std::endl;
+			s.insert(ys);
+		}
+	}
+}
+
+====================================================================
+저장 시간 - 2026-05-27 11:53:23.2319072
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 26일					(13주 1일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <set>
+#include <vector>
+#include <fstream>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+template<>
+struct std::less<YString> {
+	bool operator()(const YString& a , const YString& b) const {
+		return std::lexicographical_compare(a.begin( ) , a.end( ) , b.begin( ) , b.end( ));
+	}
+};
+
+int main( )
+{
+	save("main.cpp");
+
+	// "main.cpp"에 있는 단어를 set<YString>에 저장하라.
+	// 기준은 사전식 오름차순으로.
+
+	std::fstream in{ "main.cpp" };
+	if ( not in ) {
+		std::cout << "파일을 살펴보시오" << std::endl;
+		return 20260526;
+	}
+
+	std::set<YString> s{ std::istream_iterator<YString>{in}, {} };
+	std::vector<YString> v{ s.begin( ), s.end( ) };
+
+	for ( const YString& ys : v ) {
+		std::cout << ys << std::endl;
+	}
+
+	// [문제] 단어를 입력받아 v에 있는지 출력하라
+	while ( true ) {
+		std::cout << "찾을 단어? ";
+		YString ys;
+		std::cin >> ys;
+
+		// 아래는 오답 예시
+		if ( std::find(v.begin( ) , v.end( ) , ys) != v.end( ) ) {
+			std::cout << "단어가 있습니다." << std::endl;
+		}
+		else {
+			std::cout << "단어가 없습니다." << std::endl;
+		}
+	}
+
+}
+
+====================================================================
+저장 시간 - 2026-05-27 11:54:10.6316662
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 26일					(13주 1일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <set>
+#include <vector>
+#include <fstream>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+template<>
+struct std::less<YString> {
+	bool operator()(const YString& a , const YString& b) const {
+		return std::lexicographical_compare(a.begin( ) , a.end( ) , b.begin( ) , b.end( ));
+	}
+};
+
+int main( )
+{
+	save("main.cpp");
+
+	// "main.cpp"에 있는 단어를 set<YString>에 저장하라.
+	// 기준은 사전식 오름차순으로.
+
+	std::fstream in{ "main.cpp" };
+	if ( not in ) {
+		std::cout << "파일을 살펴보시오" << std::endl;
+		return 20260526;
+	}
+
+	std::set<YString> s{ std::istream_iterator<YString>{in}, {} };
+	std::vector<YString> v{ s.begin( ), s.end( ) };
+
+	for ( const YString& ys : v ) {
+		std::cout << ys << std::endl;
+	}
+
+	// [문제] 단어를 입력받아 v에 있는지 출력하라
+	while ( true ) {
+		std::cout << "찾을 단어? ";
+		YString ys;
+		std::cin >> ys;
+
+		// 아래는 정답
+		if ( std::binary_search(v.begin(), v.end(), ys) ) {
+			std::cout << "단어가 있습니다." << std::endl;
+		}
+		else {
+			std::cout << "단어가 없습니다." << std::endl;
+		}
+	}
+
+}
+
+====================================================================
+저장 시간 - 2026-05-27 12:09:05.4043929
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 26일					(13주 1일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <set>
+#include <vector>
+#include <fstream>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+	if ( not in ) {
+		std::cout << "파일 오류";
+		return 20260527;
+	}
+
+	std::set<YString> s{ std::istream_iterator<YString>{in}, {} };
+
+	for ( const YString& ys : s ) {
+		std::cout << ys << "  ";
+	}
+	std::cout << std::endl;
+
+	std::cout << "이 소설의 단어 개수 - " << s.size( );
+}
+
+====================================================================
+저장 시간 - 2026-05-27 12:09:35.5506225
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 26일					(13주 1일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <set>
+#include <vector>
+#include <fstream>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+	if ( not in ) {
+		std::cout << "파일 오류";
+		return 20260527;
+	}
+
+	std::multiset<YString> s{ std::istream_iterator<YString>{in}, {} };
+
+	for ( const YString& ys : s ) {
+		std::cout << ys << "  ";
+	}
+	std::cout << std::endl;
+
+	std::cout << "이 소설의 단어 개수 - " << s.size( );
+}
+
+====================================================================
+저장 시간 - 2026-05-27 12:21:09.0835016
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 26일					(13주 1일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <set>
+#include <vector>
+#include <fstream>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+	if ( not in ) {
+		std::cout << "파일 오류";
+		return 20260527;
+	}
+
+	std::multiset<YString> s{ std::istream_iterator<YString>{in}, {} };
+
+	for ( const YString& ys : s ) {
+		std::cout << ys << "  ";
+	}
+	std::cout << std::endl;
+
+	std::cout << "이 소설의 단어 개수 - " << s.size( ) << std::endl;
+
+	// [문제] 단어를 입력받아
+	// - 있다면 몇 개나 있는지
+	// - 없으면 없다라고 출력하라.
+	while ( true ) {
+		std::cout << "찾을 단어를 입력: ";
+		YString ys;
+		std::cin >> ys;
+
+		// equal_range로 찾기. 최선의 방법 아님
+		auto [first , last] = s.equal_range(ys);
+
+		if ( first == last ) {
+			std::cout << "해당 단어는 없습니다." << std::endl;
+		}
+		else {
+			std::cout << "해당 단어는 총 [" << std::distance(first, last) << "] 개 있습니다." << std::endl;
+		}
+	}
+}
+
+====================================================================
+저장 시간 - 2026-05-27 12:27:37.3846670
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 26일					(13주 1일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <set>
+#include <vector>
+#include <fstream>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+	if ( not in ) {
+		std::cout << "파일 오류";
+		return 20260527;
+	}
+
+	std::multiset<YString> s{ std::istream_iterator<YString>{in}, {} };
+
+	for ( const YString& ys : s ) {
+		std::cout << ys << "  ";
+	}
+	std::cout << std::endl;
+
+	std::cout << "이 소설의 단어 개수 - " << s.size( ) << std::endl;
+
+	// [문제] 단어를 입력받아
+	// - 있다면 몇 개나 있는지
+	// - 없으면 없다라고 출력하라.
+	while ( true ) {
+		std::cout << "찾을 단어를 입력: ";
+		YString ys;
+		std::cin >> ys;
+
+		// 정답 코드
+		size_t cnt = s.count(ys);
+		if ( cnt ) {
+			std::cout << "해당 단어는 총 [" << cnt << "] 개 있습니다." << std::endl;
+		}
+		else {
+			std::cout << "해당 단어는 없습니다." << std::endl;
+		}
+	}
+}
+
+====================================================================
+저장 시간 - 2026-05-27 12:55:14.0562705
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 26일					(13주 1일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <map>
+#include <fstream>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+	if ( not in ) {
+		std::cout << "파일 오류";
+		return 20260527;
+	}
+
+	// [문제] 파일에 있는 알파벳의 개수를 다음과 같이 출력하라
+	// 이 때 알파벳만 센다. 대문자는 소문자로 변환한다.
+	// a - 123
+	// b - 12
+	// ...
+	// z - 1
+
+	std::map<char , size_t> cs;
+
+	char c;
+	while ( in >> c ) {
+		if ( isalpha(c) ) {
+			c = tolower(c);
+			//cs.insert() // 이걸 코딩
+			++cs[ c ]; // []연산자를 사용하면 연관배열처럼 map 코딩 가능
+		}
+	}
+
+	for ( const auto& [ alpha, cnt ] : cs ) {
+		std::cout << alpha << " - " << cnt << std::endl;
+	}
+}
+
+====================================================================
+저장 시간 - 2026-05-27 13:02:04.2226848
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 26일					(13주 1일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <map>
+#include <fstream>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+	if ( not in ) {
+		std::cout << "파일 오류";
+		return 20260527;
+	}
+
+	// [문제] 파일에 있는 알파벳의 개수를 다음과 같이 출력하라
+	// 이 때 알파벳만 센다. 대문자는 소문자로 변환한다.
+	// a - 123
+	// b - 12
+	// ...
+	// z - 1
+
+	std::map<char , size_t> cs;
+
+	char c;
+	while ( in >> c ) {
+		if ( isalpha(c) ) {
+			c = tolower(c);
+			//cs.insert() // 이걸 코딩
+			++cs[ c ]; // []연산자를 사용하면 연관배열처럼 map 코딩 가능
+		}
+	}
+
+	for ( const auto& [ alpha, cnt ] : cs ) {
+		std::cout << alpha << " - " << cnt << std::endl;
+	}
+
+	// 많은 순서대로 출력하라.
+	std::cout << std::endl << std::endl;
+	std::map<size_t , char , std::greater<size_t>> sc;
+
+	for ( const auto& [alpha , cnt] : cs ) {
+		sc.insert(std::make_pair(cnt , alpha));
+	}
+
+	for ( const auto& [cnt , alpha] : sc ) {
+		std::cout << cnt << " - " << alpha << std::endl;
+	}
+}
+
+====================================================================
+저장 시간 - 2026-05-27 13:12:28.2395436
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 26일					(13주 1일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <map>
+#include <fstream>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+	if ( not in ) {
+		std::cout << "파일 오류";
+		return 20260527;
+	}
+
+	// [문제] 파일에 있는 단어 개수를 다음과 같이 출력하라
+	// a		- 
+	// aa		-
+	// ...
+	// zigzag	-
+
+	std::map<YString , size_t> ss;
+	YString ys;
+
+	while ( in >> ys ) {
+		++ss[ ys ];
+	}
+
+	for ( const auto& [word , cnt] : ss ) {
+		std::cout << word << " - " << cnt << std::endl;
+	}
+
+	std::cout << "단어 개수 - " << ss.size( );
+}
+
+====================================================================
+저장 시간 - 2026-05-27 13:16:33.3100304
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				5월 26일					(13주 1일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <map>
+#include <fstream>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+	if ( not in ) {
+		std::cout << "파일 오류";
+		return 20260527;
+	}
+
+	// [문제] 파일에 있는 단어 개수를 다음과 같이 출력하라
+	// a		- 
+	// aa		-
+	// ...
+	// zigzag	-
+
+	std::map<YString , size_t> ss;
+	YString ys;
+
+	while ( in >> ys ) {
+		++ss[ ys ];
+	}
+
+	for ( const auto& [word , cnt] : ss ) {
+		std::cout << word << " - " << cnt << std::endl;
+	}
+
+	std::cout << "단어 개수 - " << ss.size( ) << std::endl << std::endl;
+
+	// 많이 나온 단어 순서대로 출력하라
+	std::map<size_t , YString , std::greater<size_t>> sys;
+
+	for ( const auto& [word , cnt] : ss ) {
+		sys.insert(std::make_pair(cnt , word));
+	}
+
+	for ( const auto& [cnt , word] : sys ) {
+		std::cout << cnt << " - " << word << std::endl;
+	}
 }
 

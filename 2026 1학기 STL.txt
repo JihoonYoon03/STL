@@ -9074,3 +9074,525 @@ int main( )
 	}
 }
 
+====================================================================
+저장 시간 - 2026-06-02 13:40:02.5248674
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 2일					(13주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <set>
+#include <fstream>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	// 입력한 단어를 정렬 후 출력하라.
+	std::set<YString, std::less<YString>> s{ std::istream_iterator<YString>{ std::cin } , {} };
+
+	for ( const YString& ys : s ) {
+		std::cout << ys << std::endl;
+	}
+}
+
+====================================================================
+저장 시간 - 2026-06-02 14:02:44.7452176
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 2일					(13주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <map>
+#include <fstream>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	// 사용 횟수가 많은 순으로 단어를 출력하라.
+	// pair<단어, 개수>
+
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+	if ( not in ) {
+		std::cout << "파일 확인" << std::endl;
+		return 20260602;
+	}
+
+	std::map<YString , size_t> ysmap;
+
+	YString word;
+	while ( in >> word ) {
+		++ysmap[ word ];
+	}
+
+	for ( const auto [w, n] : ysmap ) {
+		std::cout << w << " - " << n << std::endl;
+	}
+
+	// 사용된 개수가 많은 순서대로 단어를 출력하라
+	std::multimap<size_t , YString, std::greater<size_t>> symap;
+
+	for ( const auto& [w , n] : ysmap ) {
+		//symap[ n ] = w;
+		//symap.insert(std::pair<size_t , YString>(n , w));
+		symap.insert(std::make_pair(n , w));
+	}
+
+	for ( const auto& [n , w] : symap ) {
+		std::cout << n << " - " << w << std::endl;
+	}
+
+}
+
+====================================================================
+저장 시간 - 2026-06-02 14:06:04.7952529
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 2일					(13주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <map>
+#include <fstream>
+#include <algorithm>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	// 사용 횟수가 많은 순으로 단어를 출력하라.
+	// pair<단어, 개수>
+
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+	if ( not in ) {
+		std::cout << "파일 확인" << std::endl;
+		return 20260602;
+	}
+
+	std::map<YString , size_t> ysmap;
+
+	YString word;
+	while ( in >> word ) {
+		++ysmap[ word ];
+	}
+
+	for ( const auto [w , n] : ysmap ) {
+		std::cout << w << " - " << n << std::endl;
+	}
+
+	// 사용된 개수가 많은 순서대로 단어를 출력하라
+	std::multimap<size_t , YString , std::greater<size_t>> symap;
+
+	for ( const auto& [w , n] : ysmap ) {
+		//symap[ n ] = w;
+		//symap.insert(std::pair<size_t , YString>(n , w));
+		symap.insert(std::make_pair(n , w));
+	}
+
+	for ( const auto& [n , w] : symap ) {
+		std::cout << n << " - " << w << std::endl;
+	}
+
+	std::cout << ysmap[ "Bird" ] << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-06-02 14:13:29.0181000
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 2일					(13주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <map>
+#include <fstream>
+#include <algorithm>
+#include <vector>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	// 게임회사의 히트게임을 묶어서 관리한다.
+	std::map<YString , std::vector<YString>> 회사와히트작;
+	회사와히트작[ "펄 어비스" ] = std::vector<YString>{ "검은 사막", "붉은 사막" };
+	회사와히트작[ "펄 어비스" ].push_back("보라 사막");
+
+	for ( const auto& [회사 , 히트작] : 회사와히트작 ) {
+		std::cout << 회사;
+		for ( const YString& 게임 : 히트작 ) {
+			std::cout << " - " << 게임;
+		}
+		std::cout << std::endl;
+	}
+}
+
+====================================================================
+저장 시간 - 2026-06-02 14:26:31.9941733
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 2일					(13주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <map>
+#include <random>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+std::default_random_engine dre {};
+std::uniform_int_distribution uid { 1, 10000 };
+std::normal_distribution nd{ 0.0, 1.0 };
+
+int main( )
+{
+	save("main.cpp");
+
+	// uniform 분포가 uniform 하다는 것을 알아본다
+	std::map<size_t , size_t> uniform;
+
+	for ( int i = 0; i < 100000000; ++i ) {
+		int num = uid(dre);
+		++uniform[ num / 100 ];
+	}
+
+	for ( auto [구간 , 개수] : uniform ) {
+		std::cout << 구간 << "\t - " << 개수 << std::endl;
+	}
+}
+
+====================================================================
+저장 시간 - 2026-06-02 14:32:55.8526070
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 2일					(13주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Associative Container
+// Key, Value - Key값을 정렬 기준으로 O(log N) 복잡도로 access
+// - set, multiset		K == V
+// - map, multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <map>
+#include <random>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+std::default_random_engine dre {};
+std::uniform_int_distribution uid { 1, 10000 };
+std::normal_distribution nd{ 0.0, 0.09 };
+
+int main( )
+{
+	save("main.cpp");
+
+	// uniform 분포가 uniform 하다는 것을 알아본다
+	std::map<size_t , size_t> normal;
+
+	for ( int i = 0; i < 100000000; ++i ) {
+		double num = nd(dre);
+
+		num = num * 5000 + 5000;
+		if ( num < 0 )
+			num = 0;
+		if ( num > 10000 )
+			num = 10000;
+
+		++normal[ static_cast<int>(num) / 200 ];
+	}
+
+	for ( auto [구간 , 개수] : normal ) {
+		std::cout << 구간 << "\t - " << 개수 << std::endl;
+	}
+}
+
+====================================================================
+저장 시간 - 2026-06-02 14:47:51.0605456
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 2일					(13주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Unordered Associative Container
+// Key, Value - O(1) 복잡도로 key값에 access
+// - unordered_set, unordered_multiset		K == V
+// - unordered_map, unordered_multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <unordered_set>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::unordered_set<int> us{ 1, 2, 3, 4 };
+
+	for ( int num : us ) {
+		std::cout << num << " ";
+	}
+	std::cout << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-06-02 14:49:05.0613578
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 2일					(13주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Unordered Associative Container
+// Key, Value - O(1) 복잡도로 key값에 access
+// - unordered_set, unordered_multiset		K == V
+// - unordered_map, unordered_multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <unordered_set>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::unordered_set<int> us{ 1, 2, 3, 4 };
+
+	for ( int num : us ) {
+		std::cout << num << " ";
+	}
+	std::cout << std::endl;
+
+	us.insert(5);
+
+	for ( int num : us ) {
+		std::cout << num << " ";
+	}
+	std::cout << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-06-02 14:49:46.9606712
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 2일					(13주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Unordered Associative Container
+// Key, Value - O(1) 복잡도로 key값에 access
+// - unordered_set, unordered_multiset		K == V
+// - unordered_map, unordered_multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <unordered_set>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::unordered_set<int> us{ 1, 2, 3, 4 };
+
+	for ( int num : us ) {
+		std::cout << num << " ";
+	}
+	std::cout << std::endl;
+
+	us.insert(9);
+
+	for ( int num : us ) {
+		std::cout << num << " ";
+	}
+	std::cout << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-06-02 15:14:38.3920265
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 2일					(13주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Unordered Associative Container
+// Key, Value - O(1) 복잡도로 key값에 access
+// - unordered_set, unordered_multiset		K == V
+// - unordered_map, unordered_multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <unordered_set>
+#include <print>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	// [문제] unordered_multiset의 메모리 구조를 출력해본다.
+	// hash는 다음 시간에
+	std::unordered_multiset<int> ums;
+
+	while ( true ) {
+		std::cout << "추가할 int값 - ";
+		int num;
+		std::cin >> num;
+		std::cout << std::endl;
+
+		ums.insert(num);
+
+		for ( int i = 0; i < ums.bucket_count( ); ++i ) {
+			std::print("[{:>4}]" , i);
+			// i번째 버킷 내부 순회
+			for ( auto p = ums.begin(i); p != ums.end(i); ++p ) {
+				std::cout << " <-> " << *p;
+			}
+			std::cout << std::endl;
+		}
+		std::cout << std::endl;
+	}
+
+}
+
+====================================================================
+저장 시간 - 2026-06-02 15:17:34.4583490
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 2일					(13주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Unordered Associative Container
+// Key, Value - O(1) 복잡도로 key값에 access
+// - unordered_set, unordered_multiset		K == V
+// - unordered_map, unordered_multimap
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <unordered_set>
+#include <print>
+
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	// [문제] unordered_multiset의 메모리 구조를 출력해본다.
+	// hash는 다음 시간에
+	std::unordered_multiset<int> ums;
+
+	while ( true ) {
+		std::cout << "추가할 int값 - ";
+		int num;
+		std::cin >> num;
+		std::cout << std::endl;
+
+		ums.insert(num);
+		std::cout << std::hash<int>( )( num ) << std::endl;
+
+		for ( int i = 0; i < ums.bucket_count( ); ++i ) {
+			std::print("[{:>4}]" , i);
+			// i번째 버킷 내부 순회
+			for ( auto p = ums.begin(i); p != ums.end(i); ++p ) {
+				std::cout << " <-> " << *p;
+			}
+			std::cout << std::endl;
+		}
+		std::cout << std::endl;
+	}
+
+}
+

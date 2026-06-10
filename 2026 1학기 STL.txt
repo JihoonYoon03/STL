@@ -10303,3 +10303,597 @@ int main( )
 걸린 시간 - 2808us
 */
 
+====================================================================
+저장 시간 - 2026-06-10 11:56:36.9452141
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 10일					(14주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Algorithm
+// 1 - Non-modifying sequence operations
+// 2 - Modifying sequence operations
+// 3 - Sort and related operations
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+#include <random>
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+std::default_random_engine dre{ std::random_device{}( ) };
+
+int main( )
+{
+	save("main.cpp");
+
+	// 로또 번호를 생성해주자.
+	std::vector<int> v(45);
+	std::iota(v.begin( ) , v.end( ) , 1);
+
+	for ( int num : v )
+		std::cout << num << " ";
+	std::cout << std::endl;
+	
+	std::shuffle(v.begin( ) , v.end( ) , dre);
+
+	std::cout << "이 번호로: ";
+	std::sample(v.begin( ) , v.end( ) , std::ostream_iterator<int>{ std::cout, "  " } , 5 , dre);
+	std::cout << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-06-10 12:07:42.4219801
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 10일					(14주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Algorithm
+// 1 - Non-modifying sequence operations
+// 2 - Modifying sequence operations
+// 3 - Sort and related operations
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+#include <random>
+#include <print>
+#include <thread>
+#include <chrono>
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+using namespace std::chrono_literals;
+
+int main( )
+{
+	save("main.cpp");
+
+	// 글자가 한 방향으로 흘러가는 전광판
+	YString ys{ "--- The quick brown fox jumps over the lazy dog --- " };
+
+	for ( int i = 0; i < 12; ++i )
+		std::cout << std::endl;
+
+	while ( true ) {
+		std::print("{:^80}" , std::string{ ys.begin( ), ys.end( ) });
+		std::cout << '\r';
+		std::this_thread::sleep_for(300ms);
+		std::rotate(ys.begin(), ys.begin() + 1, ys.end() );
+	}
+}
+
+====================================================================
+저장 시간 - 2026-06-10 12:15:26.3880318
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 10일					(14주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Algorithm
+// 1 - Non-modifying sequence operations
+// 2 - Modifying sequence operations
+// 3 - Sort and related operations
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <print>
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+std::default_random_engine dre;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::vector<int> v;
+	for ( int i = 0; i < 100; ++i )
+		v.push_back(i + 1);
+
+	std::shuffle(v.begin( ) , v.end( ) , dre);
+
+	for ( int num : v )
+		std::print("{:8}" , num);
+	std::cout << std::endl;
+
+	// [문제] 홀수와 짝수로 정렬하라
+	// 홀수보다 앞선 짝수는 없어야 한다.
+	// 오답 예시
+	std::sort(v.begin( ) , v.end( ) , [](int a , int b) {
+		if ( a % 2 == 0 )
+			if ( b % 2 )
+				return false;
+		return true;
+		});
+
+	std::cout << std::endl;
+	std::cout << "홀수 앞에 짝수 뒤에" << std::endl;
+	for ( int num : v )
+		std::print("{:8}" , num);
+	std::cout << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-06-10 12:21:46.7809264
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 10일					(14주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Algorithm - 복잡도 순서대로
+// 1. partition
+// 2. nth_element
+// 3. partial_sort
+// 4. sort
+// 5. stable_sort
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <print>
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+std::default_random_engine dre;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::vector<int> v;
+	for ( int i = 0; i < 100; ++i )
+		v.push_back(i + 1);
+
+	std::shuffle(v.begin( ) , v.end( ) , dre);
+
+	for ( int num : v )
+		std::print("{:8}" , num);
+	std::cout << std::endl;
+
+	// [문제] 홀수와 짝수로 분리하라
+	// 홀수보다 앞선 짝수는 없어야 한다.
+	// 정답
+	auto p = std::partition(v.begin( ) , v.end( ) , [](int num) {
+			return num % 2;
+		});
+
+	std::cout << "홀수 개수 - " << p - v.begin( ) << std::endl;
+	for ( auto i = v.begin( ); i != p; ++i )
+		std::print("{:8}" , *i);
+	std::cout << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-06-10 12:31:41.6793520
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 10일					(14주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Algorithm - 복잡도 순서대로
+// 1. partition
+// 2. nth_element
+// 3. partial_sort
+// 4. sort
+// 5. stable_sort
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <print>
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+std::default_random_engine dre;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::vector<int> v;
+	for ( int i = 0; i < 100; ++i )
+		v.push_back(i + 1);
+
+	std::shuffle(v.begin( ) , v.end( ) , dre);
+
+	for ( int num : v )
+		std::print("{:8}" , num);
+	std::cout << std::endl;
+
+	// [문제] v에서 3의 배수 10개만 골라줘
+	std::nth_element(v.begin( ) , v.begin( ) + 10 , v.end( ) , [](int a, int b) {
+		if ( a % 3 )
+			if ( b % 3 == 0 )
+				return false;
+		return true;
+		});
+
+	std::cout << "10개까지" << std::endl;
+	for ( auto i = v.begin( ); i != v.begin() + 10; ++i )
+		std::print("{:8}" , *i);
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+	std::cout << "10개이후" << std::endl;
+	for ( auto i = v.begin() + 10; i != v.end(); ++i )
+		std::print("{:8}" , *i);
+	std::cout << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-06-10 12:34:04.7211192
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 10일					(14주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Algorithm - 복잡도 순서대로
+// 1. partition
+// 2. nth_element
+// 3. partial_sort
+// 4. sort
+// 5. stable_sort
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <print>
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+std::default_random_engine dre;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::vector<int> v;
+	for ( int i = 0; i < 100; ++i )
+		v.push_back(i + 1);
+
+	std::shuffle(v.begin( ) , v.end( ) , dre);
+
+	for ( int num : v )
+		std::print("{:8}" , num);
+	std::cout << std::endl;
+
+	// [문제] v를 정렬했을때 앞에서 부터 20개만 골라줘
+	// 진짜 정렬은 아니다.
+	std::nth_element(v.begin( ) , v.begin( ) + 20 , v.end( ));
+
+	std::cout << "20개까지" << std::endl;
+	for ( auto i = v.begin( ); i != v.begin() + 20; ++i )
+		std::print("{:8}" , *i);
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+	std::cout << "20개이후" << std::endl;
+	for ( auto i = v.begin() + 20; i != v.end(); ++i )
+		std::print("{:8}" , *i);
+	std::cout << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-06-10 12:36:42.7918868
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 10일					(14주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Algorithm - 복잡도 순서대로
+// 1. partition
+// 2. nth_element
+// 3. partial_sort
+// 4. sort
+// 5. stable_sort
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <print>
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+std::default_random_engine dre;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::vector<int> v;
+	for ( int i = 0; i < 100; ++i )
+		v.push_back(i + 1);
+
+	std::shuffle(v.begin( ) , v.end( ) , dre);
+
+	for ( int num : v )
+		std::print("{:8}" , num);
+	std::cout << std::endl;
+
+	// [문제] v를 1등부터 20등까지 정렬해줘
+	// nth_element와 다르게 부분적으로 정렬 유지
+	std::partial_sort(v.begin( ) , v.begin( ) + 20 , v.end( ));
+
+	std::cout << "20등까지" << std::endl;
+	for ( auto i = v.begin( ); i != v.begin() + 20; ++i )
+		std::print("{:8}" , *i);
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+	std::cout << "20등이후" << std::endl;
+	for ( auto i = v.begin() + 20; i != v.end(); ++i )
+		std::print("{:8}" , *i);
+	std::cout << std::endl;
+	std::cout << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-06-10 12:37:29.9015148
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 10일					(14주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Algorithm - 복잡도 순서대로
+// 1. partition
+// 2. nth_element
+// 3. partial_sort
+// 4. sort
+// 5. stable_sort
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <print>
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+std::default_random_engine dre;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::vector<int> v;
+	for ( int i = 0; i < 100; ++i )
+		v.push_back(i + 1);
+
+	std::shuffle(v.begin( ) , v.end( ) , dre);
+
+	for ( int num : v )
+		std::print("{:8}" , num);
+	std::cout << std::endl;
+
+	// [문제] v를 1등부터 100등까지 정렬해줘
+	std::sort(v.begin( ) , v.end( ));
+
+	std::cout << "sort" << std::endl;
+	for ( auto i = v.begin( ); i != v.end(); ++i )
+		std::print("{:8}" , *i);
+	std::cout << std::endl;
+	std::cout << std::endl;
+}
+
+====================================================================
+저장 시간 - 2026-06-10 12:46:08.1946460
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 10일					(14주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// STL Algorithm - 복잡도 순서대로
+// 1. partition
+// 2. nth_element
+// 3. partial_sort
+// 4. sort
+// 5. stable_sort
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <print>
+#include <fstream>
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+std::default_random_engine dre;
+
+int main( )
+{
+	save("main.cpp");
+
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+	if ( not in ) {
+		std::cout << "파일 오류";
+		return 20260610;
+	}
+
+	std::vector<YString> v{ std::istream_iterator<YString>{in}, {} };
+	std::sort(v.begin( ) , v.end( ));
+
+	// 중복단어 제거
+	v.erase(std::unique(v.begin( ) , v.end( )) , v.end( ));
+
+	// 길이 오름차순으로 재정렬하라
+	// 길이가 같은 경우 사전식 정렬은 유지해야 한다.
+	std::stable_sort(v.begin( ) , v.end( ) , [](const YString& a, const YString& b) {
+		return a.size( ) < b.size( );
+		});
+
+	for ( const YString& ys : v )
+		std::cout << ys << std::endl;
+	std::cout << std::endl;
+
+}
+
+====================================================================
+저장 시간 - 2026-06-10 13:00:22.4456954
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 10일					(14주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// range
+// concept
+// universal forwarding
+// views
+// constrained algorithm
+// lazy-evaluation <-> eager evaluation
+// projection
+// pointer-to member
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <ranges>
+#include <vector>
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	// 1 to infinite
+	for ( int num : std::views::iota(1) ) {
+		std::cout << num << " ";
+	}
+
+}
+
+====================================================================
+저장 시간 - 2026-06-10 13:11:01.1974598
+====================================================================
+
+//------------------------------------------------------------------
+// 2026 1학기 STL				6월 10일					(14주 2일)
+// 기말시험 6/17
+//------------------------------------------------------------------
+// range										***
+// concept
+// universal forwarding							***
+// views
+// constrained algorithm
+// lazy-evaluation <-> eager evaluation			***
+// projection
+// pointer-to member
+//------------------------------------------------------------------
+
+#include <iostream>
+#include <ranges>
+#include <vector>
+#include "save.h"
+#include "YString.h"
+
+extern bool observe;
+
+int main( )
+{
+	save("main.cpp");
+
+	// 필터링 과정을 cout으로 볼 수 있다
+	// lazy-evalutaion
+	auto is_odd = [](int num) { 
+		std::cout << " 홀수 ";
+		return num % 2;
+		};
+	auto is_prime = [](int n) {
+		std::cout << " 소수 ";
+
+		if ( n <= 1 ) return false;         // 1 이하의 수는 소수가 아님
+		if ( n == 2 ) return true;          // 2는 유일한 짝수 소수
+		if ( n % 2 == 0 ) return false;     // 2를 제외한 짝수는 소수가 아님
+
+		// 3부터 시작하여 제곱근까지만 홀수로 나누어 떨어지는지 확인
+		for ( int i = 3; i * i <= n; i += 2 ) {
+			if ( n % i == 0 ) return false;
+		}
+		return true;
+		};
+
+	// 1 to 1000
+	// 해당 구간의 데이터를 메모리에 잡아서 사용하는 것이 절대 아님.
+	// range에게 begin부터 데이터 1개 요청 -> num으로 넘어옴
+	// 넘어온 num을 필터에 순차적으로 넘김
+	// 필터를 전부 통과한 값만 본문 실행
+	// 따라서, const & 등을 넣으면 문제가 생길 수 있음
+	// 보편 참조(auto&&)를 사용해서 num 형식을 추론하도록 하라.
+	for ( auto&& num :
+		std::views::iota(1, 1000)
+		| std::views::filter(is_odd)
+		| std::views::filter(is_prime) )
+	{
+		std::cout << num << " ";
+	}
+}
+
